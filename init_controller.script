@@ -95,6 +95,7 @@ function Script:show_start_scene()
 end
 
 function Script:init()
+    roketo.test_lib()
     self.url = msg.url()
     COMMON.i("version:" .. COMMON.CONSTANTS.PROJECT_VERSION, TAG)
     COMMON.FEATURES = Features()
