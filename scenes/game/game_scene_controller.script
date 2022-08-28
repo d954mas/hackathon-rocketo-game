@@ -1,0 +1,45 @@
+local COMMON = require "libs.common"
+local WORLD = require "world.world"
+local SM = require "libs_project.sm"
+local SCENE_ENUMS = require "libs.sm.enums"
+local ANALYTICS = require "libs_project.analytics"
+
+---@class ScriptGame
+local Script = COMMON.new_n28s()
+
+function Script:init()
+	self.scene_on_top = false
+	COMMON.input_acquire()
+	COMMON.CONTEXT:register(COMMON.CONTEXT.NAMES.GAME, self)
+	ANALYTICS:eventCustom("gamescene:controller:init")
+	local time = socket.gettime()
+	WORLD.game:game_loaded()
+
+	local delay = (socket.gettime() - time)
+	ANALYTICS:eventCustom("level:load_time", delay)
+	COMMON.i("total level load:" .. delay, "LEVELS")
+
+
+end
+
+function Script:update(dt)
+	local scene_on_top = SM:get_top() and SM:get_top()._name == SM.SCENES.GAME
+	if (self.scene_on_top ~= scene_on_top) then
+		self.scene_on_top = scene_on_top
+	end
+	WORLD.game:update(dt)
+end
+
+function Script:final()
+	COMMON.input_release()
+	COMMON.CONTEXT:unregister(COMMON.CONTEXT.NAMES.GAME)
+	WORLD.game:final()
+end
+
+function Script:on_input(action_id, action)
+	if (SM:get_scene_by_name(SM.SCENES.GAME)._state == SCENE_ENUMS.STATES.RUNNING) then
+		return WORLD.game:on_input(action_id, action)
+	end
+end
+
+COMMON.N28S.register(Script())

@@ -1,0 +1,11 @@
+[project]
+dependencies#0 = https://github.com/AGulev/jstodef/archive/1.4.0.zip
+dependencies#1 = https://github.com/DanEngelbrecht/LuaScriptInstance/archive/master.zip
+dependencies#2 = https://github.com/britzl/defold-lfs/archive/master.zip
+dependencies#3 = https://github.com/GameDistribution/gd-defold/archive/main.zip
+
+[game]
+target = game_distribution
+
+[gamedistribution]
+game_id = 4386cf5a65fb4c11be5238ec16c5908a

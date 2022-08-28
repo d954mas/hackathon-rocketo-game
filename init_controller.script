@@ -1,0 +1,237 @@
+local Features = require "libs.features"
+
+local COMMON = require "libs.common"
+-- luacheck: ignore ANALYTICS
+local ANALYTICS = require "libs_project.analytics"
+
+local SM = require "libs_project.sm"
+local DEBUG_INFO = require "debug.debug_info"
+local SCENE_LOADER = require "libs.sm.scene_loader"
+
+local ANALYTICS_HELPER = require "libs_project.analytics_helper"
+
+local RUN_TEST = false or COMMON.CONSTANTS.IS_TESTS
+local CAMERAS = require "libs_project.cameras"
+
+local SOUNDS = require "libs.sounds"
+
+local WORLD = require "world.world"
+
+local CURTAINS = require "curtains.curtains"
+
+local YA = require "libs.yagames.yagames"
+local JSON = require "libs.json"
+local CRYPTO = require "libs.crypto"
+
+local SITELOCK = require "libs.yagames.sitelock"
+
+local TAG = "INIT_CONTROLLER"
+
+COMMON.empty_ne("defos")
+
+---@class ScriptMain
+local Script = COMMON.new_n28s()
+
+function Script:scenes_register()
+    SM:register_scenes()
+end
+
+function Script:input_init()
+    self.input = COMMON.INPUT()
+    self.input.acquire()
+    timer.delay(0.1, true, function()
+        self.input.acquire()--make always on top of input stack
+    end)
+end
+
+function Script:init_random()
+    math.randomseed(os.time())
+    math.random()
+    math.random()
+    math.random()
+    math.random()
+end
+
+function Script:init_msg()
+    self.msg = COMMON.MSG()
+    self.msg:add(COMMON.HASHES.MSG.LOADING.PROXY_LOADED, function(_, _, _, sender)
+        SCENE_LOADER.load_done(sender)
+    end)
+end
+
+
+function Script:show_start_scene_scene()
+    if not RUN_TEST then
+        WORLD.sdk:ads_commercial(function()
+            SM:show(SM.SCENES.GAME)
+        end)
+    else
+        --  self.test_runner = require("tests.tests") -- run tests
+        --  self.test_runner.run()
+    end
+end
+
+function Script:show_start_scene()
+    if (COMMON.CONSTANTS.TARGET_IS_YANDEX_GAMES) then
+        YA.player_init({ scopes = false }, function()
+            print("YA INIT")
+            if (YA.player_ready) then
+                print("PLAYER READY")
+                print(YA.player_get_unique_id())
+                print(YA.player_get_name())
+                --load storage
+                WORLD:ya_load_storage(function()
+                    self:show_start_scene_scene()
+                end)
+
+            else
+                self:show_start_scene_scene()
+            end
+        end)
+    else
+        self:show_start_scene_scene()
+    end
+
+end
+
+function Script:init()
+    self.url = msg.url()
+    COMMON.i("version:" .. COMMON.CONSTANTS.PROJECT_VERSION, TAG)
+    COMMON.FEATURES = Features()
+    if (COMMON.CONSTANTS.VERSION_IS_RELEASE) then
+        COMMON.FEATURES:prod_config()
+    else
+        COMMON.FEATURES:debug_config()
+    end
+    if(imgui)then
+        imgui.set_display_size(COMMON.RENDER.screen_size.w, COMMON.RENDER.screen_size.h)
+    end
+
+    if (jstodef) then
+        jstodef.add_listener(function(_, message_id, message)
+            COMMON.EVENT_BUS:event(COMMON.EVENTS.JSTODEF, { message_id = message_id, message = message })
+        end)
+    end
+
+    --WORLD.ads:init()
+
+    COMMON.FEATURES:load()
+    self.thread = COMMON.ThreadManager()
+    self.thread.drop_empty = false
+    self.subscription = COMMON.RX.SubscriptionsStorage()
+    COMMON.CONTEXT:register(COMMON.CONTEXT.NAMES.MAIN, self)
+
+    self.subscription:add(COMMON.EVENT_BUS:subscribe(COMMON.EVENTS.STORAGE_SAVED):subscribe(function()
+        if (COMMON.CONSTANTS.TARGET_IS_YANDEX_GAMES) then
+            if (YA.player_ready) then
+                print("YA SAVE DATA")
+                local data = JSON.encode(WORLD.storage.data, false)
+                if(WORLD.sdk.yagames.ya_storage_data~=data) then
+                    print("YA UPDATE DATA")
+                    local send_data = {
+                        data = CRYPTO.crypt(data,COMMON.CONSTANTS.CRYPTO_KEY),
+                        encrypted = true
+                    }
+                    YA.player_set_data({ storage_new = send_data }, true, function()
+
+                    end)
+                else
+                    print("YA storage not changed")
+                end
+
+            end
+        end
+
+    end))
+
+    self.subscription:add(COMMON.EVENT_BUS:subscribe(COMMON.EVENTS.LEVEL_COMPLETED):subscribe(function()
+        WORLD.game:leaderboard_send_data()
+    end))
+
+    self:scenes_register()
+    self:init_random()
+    self:input_init()
+    self:init_msg()
+
+    collectgarbage()
+    collectgarbage()
+
+    collectionfactory.load("/preloader#keep_in_memory", function()
+        collectionfactory.create("/preloader#keep_in_memory")
+    end)
+
+    COMMON.GLOBAL.time_init_end = socket.gettime()
+    local init_time = (COMMON.GLOBAL.time_init_end - COMMON.GLOBAL.time_init_start)
+    ANALYTICS_HELPER.performance_init_time(init_time)
+    COMMON.i("init time:" .. init_time)
+
+    --fixed set group gain
+    timer.delay(0,false,function()
+        SOUNDS:on_storage_changed()
+    end)
+
+
+
+
+    WORLD.sdk:init(function()
+        local sitelock_ok = true
+        if(crazy_games)then
+            sitelock_ok = SITELOCK.verify_domain_match({".*%.crazygames%..*" ,".*%.1001juegos.com"})
+        elseif(gdsdk) then
+            sitelock_ok = true
+        elseif (poki_sdk)then
+            sitelock_ok = true
+            WORLD.sdk:sitelock()
+        else
+            sitelock_ok =  SITELOCK.verify_domain()
+        end
+        sitelock_ok = true --disable sitolock
+        if(sitelock_ok)then
+            self:show_start_scene()
+        else
+            SM:show(SM.SCENES.SITELOCK)
+        end
+
+    end)
+
+end
+
+function Script:update(dt)
+    --init input always on top
+    COMMON.INPUT.acquire(self.url)
+    --  ANALYTICS_HELPER.performance_dt(dt)
+    dt = dt * COMMON.GLOBAL.speed_game
+    COMMON.RX.MainScheduler:update(dt)
+    COMMON.APPLICATION.THREAD:update(dt)
+    SM:update(dt)
+    CAMERAS:update(dt)
+    SOUNDS:update(dt)
+    WORLD.sdk:update(dt)
+    self.thread:update(dt)
+
+    --  if self.test_runner then
+    --   self.test_runner.update(dt)
+    --  end
+    DEBUG_INFO.update(dt)
+    WORLD:update(dt)
+
+    CURTAINS:update(dt)
+end
+
+function Script:final()
+    COMMON.INPUT.clear()
+    self.input.release()
+    COMMON.CONTEXT:unregister(COMMON.CONTEXT.NAMES.MAIN)
+end
+
+function Script:on_input(action_id, action)
+    COMMON.INPUT.handle_pressed_keys(action_id, action)
+    if (COMMON.INPUT.IGNORE) then return true end
+    return self.input:on_input(self, action_id, action)
+end
+
+function Script:on_message(message_id, message, sender)
+    self.msg:on_message(self, message_id, message, sender)
+end
+
+COMMON.N28S.register(Script())

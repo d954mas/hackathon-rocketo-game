@@ -1,0 +1,54 @@
+local COMMON = require "libs.common"
+local ACTIONS = require "libs.actions.actions"
+local BaseGuiScript = require "libs_project.scripts.base_gui_script"
+
+---@class GameSceneGuiScript:GuiScriptBase
+local Script = COMMON.class("GameSceneGuiScript", BaseGuiScript)
+
+function Script:init()
+	BaseGuiScript.init(self, { context_name = COMMON.CONTEXT.NAMES.GAME_GUI })
+	self.actions = ACTIONS.Parallel()
+	self.actions.drop_empty = false
+	self.subscription:add(COMMON.EVENT_BUS:subscribe(COMMON.EVENTS.WINDOW_RESIZED):go_distinct(self.scheduler)
+								:subscribe(function()
+		self:on_resize()
+	end))
+	self:on_resize()
+end
+
+function Script:bind_vh()
+	self.vh = {
+
+	}
+
+	self.views = {
+
+	}
+end
+
+function Script:init_gui()
+	BaseGuiScript.init_gui(self)
+	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.GAME)
+end
+
+function Script:on_resize()
+
+end
+
+function Script:update(dt)
+	BaseGuiScript.update(self, dt)
+end
+
+function Script:on_input(action_id, action)
+
+end
+
+function Script:on_storage_changed()
+
+end
+
+function Script:final()
+
+end
+
+COMMON.N28S.register_scripts({ Script() })

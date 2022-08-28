@@ -1,0 +1,11 @@
+[project]
+title = CryptoNeon Hex
+
+[android]
+package = com.d954mas.game.cryptoneonhex
+
+[game]
+version = release
+
+[native_extension]
+app_manifest = /app_manifest_release.appmanifest
