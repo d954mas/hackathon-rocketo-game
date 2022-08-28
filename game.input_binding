@@ -1,0 +1,144 @@
+key_trigger {
+  input: KEY_0
+  action: "toggle_profile"
+}
+key_trigger {
+  input: KEY_BACKSPACE
+  action: "backspace"
+}
+key_trigger {
+  input: KEY_9
+  action: "toggle_debug_gui"
+}
+key_trigger {
+  input: KEY_8
+  action: "toggle_physics"
+}
+key_trigger {
+  input: KEY_1
+  action: "KEY_1"
+}
+key_trigger {
+  input: KEY_LEFT
+  action: "selection_left"
+}
+key_trigger {
+  input: KEY_RIGHT
+  action: "selection_right"
+}
+key_trigger {
+  input: KEY_UP
+  action: "selection_up"
+}
+key_trigger {
+  input: KEY_DOWN
+  action: "selection_down"
+}
+key_trigger {
+  input: KEY_ENTER
+  action: "selection_press"
+}
+key_trigger {
+  input: KEY_LCTRL
+  action: "left_ctrl"
+}
+key_trigger {
+  input: KEY_R
+  action: "R"
+}
+key_trigger {
+  input: KEY_Q
+  action: "Q"
+}
+key_trigger {
+  input: KEY_E
+  action: "E"
+}
+key_trigger {
+  input: KEY_A
+  action: "A"
+}
+key_trigger {
+  input: KEY_D
+  action: "D"
+}
+key_trigger {
+  input: KEY_SPACE
+  action: "space"
+}
+key_trigger {
+  input: KEY_LSHIFT
+  action: "left_shift"
+}
+key_trigger {
+  input: KEY_LEFT
+  action: "arrow_left"
+}
+key_trigger {
+  input: KEY_RIGHT
+  action: "arrow_right"
+}
+key_trigger {
+  input: KEY_W
+  action: "W"
+}
+key_trigger {
+  input: KEY_UP
+  action: "arrow_up"
+}
+key_trigger {
+  input: KEY_F
+  action: "F"
+}
+key_trigger {
+  input: KEY_ESC
+  action: "escape"
+}
+key_trigger {
+  input: KEY_M
+  action: "M"
+}
+key_trigger {
+  input: KEY_Z
+  action: "Z"
+}
+key_trigger {
+  input: KEY_X
+  action: "X"
+}
+key_trigger {
+  input: KEY_S
+  action: "S"
+}
+key_trigger {
+  input: KEY_DOWN
+  action: "arrow_down"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_1
+  action: "touch"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_2
+  action: "right_click"
+}
+mouse_trigger {
+  input: MOUSE_WHEEL_UP
+  action: "scroll_up"
+}
+mouse_trigger {
+  input: MOUSE_WHEEL_DOWN
+  action: "scroll_down"
+}
+touch_trigger {
+  input: TOUCH_MULTI
+  action: "multitouch"
+}
+text_trigger {
+  input: TEXT
+  action: "text"
+}
+text_trigger {
+  input: MARKED_TEXT
+  action: "marked_text"
+}

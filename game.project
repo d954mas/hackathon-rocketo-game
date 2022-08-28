@@ -1,0 +1,167 @@
+[project]
+title = NeonHex
+version = 0.0.1
+custom_resources = 
+bundle_exclude_resources = 
+bundle_resources = assets/bundle
+dependencies#0 = https://github.com/AGulev/jstodef/archive/1.4.0.zip
+dependencies#1 = https://github.com/DanEngelbrecht/LuaScriptInstance/archive/master.zip
+dependencies#2 = https://github.com/britzl/defold-lfs/archive/master.zip
+
+[bootstrap]
+main_collection = /init.collectionc
+render = /render/my.renderc
+
+[input]
+game_binding = /imgui.input_bindingc
+use_accelerometer = 0
+
+[display]
+width = 540
+height = 960
+high_dpi = 1
+fullscreen = 0
+display_profiles = /builtins/render/default.display_profilesc
+vsync = 0
+dynamic_orientation = 0
+
+[physics]
+type = 2D
+debug = 0
+scale = 0.01
+gravity_y = -600.0
+max_collisions = 1
+max_contacts = 1
+ray_cast_limit_2d = 1
+ray_cast_limit_3d = 1
+trigger_overlap_capacity = 1
+
+[script]
+shared_state = 1
+
+[library]
+include_dirs = 
+
+[native_extension]
+app_manifest = /app_manifest_debug.appmanifest
+
+[android]
+gcm_sender_id = 
+push_field_text = 
+manifest = /builtins/manifests/android/AndroidManifest.xml
+package = com.d954mas.game.yandexjam.dev
+
+[graphics]
+texture_profiles = /render/my.texture_profiles
+default_texture_min_filter = linear
+default_texture_mag_filter = linear
+verify_graphics_calls = 0
+
+[sound]
+max_sound_buffers = 32
+max_component_count = 64
+max_sound_data = 64
+max_sound_sources = 32
+max_sound_instances = 64
+
+[sprite]
+max_count = 512
+subpixels = 1
+
+[resource]
+max_resources = 1024
+
+[factory]
+max_count = 16
+
+[spine]
+max_count = 0
+
+[profiler]
+track_cpu = 1
+
+[windows]
+iap_provider = 
+
+[html5]
+archive_location_prefix = archive
+htmlfile = /platform/web/engine_template.html
+show_fullscreen_button = 1
+show_made_with_defold = 0
+scale_mode = no_scale
+cssfile = /platform/web/dark_theme.css
+heap_size = 128
+splash_image = 
+
+[model]
+max_count = 0
+
+[particle_fx]
+max_particle_count = 256
+max_count = 8
+
+[gui]
+max_count = 8
+max_particlefx_count = 8
+
+[label]
+max_count = 0
+
+[collectionfactory]
+max_count = 16
+
+[tilemap]
+max_count = 0
+max_tile_count = 0
+
+[googleanalytics]
+dispatch_period = 30
+queue_save_period = 60000000
+verbose = 0
+
+[collection_proxy]
+max_count = 8
+
+[engine]
+run_while_iconified = 0
+
+[ios]
+bundle_identifier = com.d954mas.game.canon
+
+[mesh]
+max_count = 0
+
+[gameanalytics]
+game_key_ios = 9d9e8194df591d23f74368ed972a28b1
+secret_key_ios = 2ebce95889e380550ea570aa225dced937425ad7
+game_key_android = 9d9e8194df591d23f74368ed972a28b1
+secret_key_android = 2ebce95889e380550ea570aa225dced937425ad7
+game_key_html5 = 9d9e8194df591d23f74368ed972a28b1
+secret_key_html5 = 2ebce95889e380550ea570aa225dced937425ad7
+game_key_osx = 9d9e8194df591d23f74368ed972a28b1
+secret_key_osx = 2ebce95889e380550ea570aa225dced937425ad7
+game_key_windows = 9d9e8194df591d23f74368ed972a28b1
+secret_key_windows = 2ebce95889e380550ea570aa225dced937425ad7
+game_key_linux = 9d9e8194df591d23f74368ed972a28b1
+secret_key_linux = 2ebce95889e380550ea570aa225dced937425ad7
+build_ios = 0.01
+build_android = 0.01
+build_html5 = 0.01
+build_osx = 0.01
+build_windows = 0.01
+build_linux = 0.01
+custom_dimensions_01 = editor,play_market,game_distribution,poki,itch_io,yandex_games,vk_games,fb_instant
+custom_dimensions_02 = 
+
+[game]
+version = dev
+target = editor
+
+[localization]
+default = en
+use_system = true
+force_locale = en
+
+[collection]
+max_instances = 512
+

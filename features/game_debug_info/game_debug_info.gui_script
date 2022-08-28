@@ -1,0 +1,25 @@
+local COMMON = require "libs.common"
+local DEBUG_INFO = require "debug.debug_info"
+
+local COLORS = {
+    GOOD = COMMON.LUME.color_parse_hex("#00ff00"),
+    WARNING = COMMON.LUME.color_parse_hex("#ffff00"),
+    BAD = COMMON.LUME.color_parse_hex("#ff0000")
+}
+
+local Script = COMMON.new_n28s()
+
+function Script:init()
+    gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.DEBUG)
+    self.vh = {
+        lbl_entities = gui.get_node("lbl_entities"),
+    }
+
+
+end
+
+function Script:update(dt)
+    gui.set_text(self.vh.lbl_entities,DEBUG_INFO.game_entities)
+end
+
+COMMON.N28S.register(Script())

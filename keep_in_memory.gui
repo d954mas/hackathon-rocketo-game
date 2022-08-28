@@ -1,0 +1,25 @@
+script: ""
+fonts {
+  name: "game_font"
+  font: "/assets/fonts/game_font.font"
+}
+fonts {
+  name: "game_font_numbers"
+  font: "/assets/fonts/game_font_numbers.font"
+}
+textures {
+  name: "gui"
+  texture: "/assets/images/gui_old/gui.atlas"
+}
+background_color {
+  x: 0.0
+  y: 0.0
+  z: 0.0
+  w: 0.0
+}
+layers {
+  name: "below"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
+max_nodes: 2
