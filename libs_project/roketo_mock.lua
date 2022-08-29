@@ -5,7 +5,8 @@ local ACTIONS = require "libs.actions.actions"
 local Roketo = {
 	parallel = ACTIONS.Parallel(),
 	data = {
-		inited = false
+		inited = false,
+		login = true
 	}
 }
 Roketo.parallel.drop_empty = false
@@ -13,7 +14,7 @@ Roketo.parallel.drop_empty = false
 function Roketo.init_near()
 	Roketo.parallel:add_action(function()
 		if (Roketo.inited) then
-			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitError", message = { error = "NearAlreadyInited" } })
+			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitLoginError", message = { error = "NearAlreadyInited" } })
 		else
 			COMMON.coroutine_wait(2)
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitSuccess" })
@@ -24,6 +25,16 @@ function Roketo.init_near()
 	end)
 end
 
+function Roketo.is_logged_in()
+	return Roketo.data.login
+end
+
+function Roketo.login()
+	Roketo.parallel:add_action(function()
+		COMMON.coroutine_wait(1)
+		COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearLoginSuccess" })
+	end)
+end
 
 function Roketo.update(dt)
 	Roketo.parallel:update(dt)

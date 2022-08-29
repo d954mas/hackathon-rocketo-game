@@ -8,14 +8,10 @@
 
 
 extern "C" {
-    void RoketoSdkJs_testlib();
-    void RoketoSdkJs_initNear();
-}
+   void RoketoSdkJs_initNear();
+    bool RoketoSdkJs_isLoggedIn();
+    void RoketoSdkJs_login();
 
-static int RoketoSdkJs_testlibLua(lua_State* L){
-    DM_LUA_STACK_CHECK(L, 0);
-    RoketoSdkJs_testlib();
-    return 0;
 }
 
 static int RoketoSdkJs_initNearLua(lua_State* L){
@@ -24,13 +20,27 @@ static int RoketoSdkJs_initNearLua(lua_State* L){
     return 0;
 }
 
+static int RoketoSdkJs_isLoggedInLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 1);
+    bool result = RoketoSdkJs_isLoggedIn();
+    lua_pushboolean(L,result);
+    return 1;
+}
+
+static int RoketoSdkJs_loginLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    RoketoSdkJs_login();
+    return 0;
+}
+
 
 
 // Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
-    {"test_lib", RoketoSdkJs_testlibLua},
     {"init_near", RoketoSdkJs_initNearLua},
+    {"is_logged_in", RoketoSdkJs_isLoggedInLua},
+    {"login", RoketoSdkJs_loginLua},
     {0, 0}
 };
 

@@ -99,7 +99,6 @@ function Script:init()
 	if (not roketo and COMMON.CONSTANTS.TARGET_IS_EDITOR) then
 		roketo = RoketoMock
 	end
-	roketo.init_near()
 	self.url = msg.url()
 	COMMON.i("version:" .. COMMON.CONSTANTS.PROJECT_VERSION, TAG)
 	COMMON.FEATURES = Features()
