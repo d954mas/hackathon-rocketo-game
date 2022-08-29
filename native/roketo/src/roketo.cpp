@@ -11,6 +11,7 @@ extern "C" {
    void RoketoSdkJs_initNear();
     bool RoketoSdkJs_isLoggedIn();
     void RoketoSdkJs_login();
+    void RoketoSdkJs_contractGetGame(int idx);
 
 }
 
@@ -33,6 +34,13 @@ static int RoketoSdkJs_loginLua(lua_State* L){
     return 0;
 }
 
+static int RoketoSdkJs_contractGetGameLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    int idx = lua_tonumber(L,1);
+    RoketoSdkJs_contractGetGame(idx);
+    return 0;
+}
+
 
 
 // Functions exposed to Lua
@@ -41,6 +49,7 @@ static const luaL_reg Module_methods[] =
     {"init_near", RoketoSdkJs_initNearLua},
     {"is_logged_in", RoketoSdkJs_isLoggedInLua},
     {"login", RoketoSdkJs_loginLua},
+    {"contract_get_game", RoketoSdkJs_contractGetGameLua},
     {0, 0}
 };
 

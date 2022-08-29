@@ -3,6 +3,7 @@ local ACTIONS = require "libs.actions.actions"
 local BaseGuiScript = require "libs_project.scripts.base_gui_script"
 local LoginView = require "scenes.game.views.login_view"
 local InitializingView = require "scenes.game.views.initializing_view"
+local DebugView = require "scenes.game.views.debug_view"
 
 ---@class GameSceneGuiScript:GuiScriptBase
 local Script = COMMON.class("GameSceneGuiScript", BaseGuiScript)
@@ -32,7 +33,8 @@ function Script:bind_vh()
 
 	self.views = {
 		login_view = LoginView("login_view"),
-		initializing_view = InitializingView("init_near_view")
+		initializing_view = InitializingView("init_near_view"),
+		debug_view = DebugView("debug_view")
 	}
 end
 
@@ -59,6 +61,7 @@ function Script:on_near_event(data)
 end
 
 function Script:show_initializing_ui()
+	COMMON.i("show_initializing_ui","GAME_UI")
 	for _,view in pairs(self.views)do
 		view:set_enabled(false)
 	end
@@ -66,6 +69,7 @@ function Script:show_initializing_ui()
 end
 
 function Script:show_login_ui()
+	COMMON.i("show_login_ui","GAME_UI")
 	for _,view in pairs(self.views)do
 		view:set_enabled(false)
 	end
@@ -73,8 +77,10 @@ function Script:show_login_ui()
 end
 
 function Script:show_start_ui()
+	COMMON.i("show_start_ui","GAME_UI")
 	self.views.initializing_view:set_enabled(false)
 	self.views.login_view:set_enabled(false)
+	self.views.debug_view:set_enabled(true)
 end
 
 
