@@ -9,6 +9,7 @@
 
 extern "C" {
     void RoketoSdkJs_testlib();
+    void RoketoSdkJs_initNear();
 }
 
 static int RoketoSdkJs_testlibLua(lua_State* L){
@@ -17,11 +18,19 @@ static int RoketoSdkJs_testlibLua(lua_State* L){
     return 0;
 }
 
+static int RoketoSdkJs_initNearLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    RoketoSdkJs_initNear();
+    return 0;
+}
+
+
 
 // Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
     {"test_lib", RoketoSdkJs_testlibLua},
+    {"init_near", RoketoSdkJs_initNearLua},
     {0, 0}
 };
 

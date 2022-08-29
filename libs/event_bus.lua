@@ -20,9 +20,17 @@ function M:event(name, data)
     if not data then data = {} end
     assert(not data.name)
     data.name = name
-    LOG.i("event:" .. name, TAG)
+
+    if(name == "NEAR")then
+        LOG.i(data.message_id, "NEAR")
+        if (data.message) then pprint(data.message) end
+    else
+        LOG.i("event:" .. name, TAG)
+    end
    -- pprint(data)
     self.subject:onNext(data)
 end
+
+
 
 return M
