@@ -17,8 +17,8 @@ game_binding = /imgui.input_bindingc
 use_accelerometer = 0
 
 [display]
-width = 540
-height = 960
+width = 960
+height = 540
 high_dpi = 1
 fullscreen = 0
 display_profiles = /builtins/render/default.display_profilesc
