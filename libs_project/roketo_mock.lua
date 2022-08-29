@@ -18,9 +18,12 @@ function Roketo.init_near()
 			COMMON.coroutine_wait(2)
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitSuccess" })
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitWalletSuccess" })
+			COMMON.coroutine_wait(1)
+			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitRoketoApiControlSuccess" })
 		end
 	end)
 end
+
 
 function Roketo.update(dt)
 	Roketo.parallel:update(dt)
