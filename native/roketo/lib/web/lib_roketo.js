@@ -7,6 +7,11 @@ var LibRoketoSdk = {
         sdk.testLib(); //Initializing the SDK, call as early as possible
     },
 
+    RoketoSdkJs_initNear: function () {
+        const sdk = window.game_sdk //Getting the SDK
+        sdk.initNear(); //Initializing the SDK, call as early as possible
+    },
+
 }
 
 mergeInto(LibraryManager.library, LibRoketoSdk);
