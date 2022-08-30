@@ -28,7 +28,7 @@ end
 
 function Script:bind_vh()
 	self.vh = {
-
+		lbl_account_id = gui.get_node("lbl_account_id")
 	}
 
 	self.views = {
@@ -86,6 +86,7 @@ end
 
 function Script:update(dt)
 	BaseGuiScript.update(self, dt)
+	gui.set_text(self.vh.lbl_account_id,roketo.get_account_id() or "not logged in")
 end
 
 function Script:on_input(action_id, action)

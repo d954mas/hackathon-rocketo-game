@@ -23,10 +23,10 @@ end
 function View:init_gui()
 	Base.init_gui(self)
 	self.views.btn_get_game:set_input_listener(function()
-		roketo.contract_get_game()
+		roketo.contract_get_game(0)
 	end)
 	self.views.btn_create_game:set_input_listener(function()
-		--roketo.login()
+		roketo.contract_create_game(roketo.get_account_id(),1,5)
 	end)
 end
 

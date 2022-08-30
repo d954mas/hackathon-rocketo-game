@@ -5,6 +5,7 @@ local ACTIONS = require "libs.actions.actions"
 local Roketo = {
 	parallel = ACTIONS.Parallel(),
 	data = {
+		id = "fake.user",
 		inited = false,
 		login = true
 	}
@@ -23,6 +24,10 @@ function Roketo.init_near()
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitRoketoApiControlSuccess" })
 		end
 	end)
+end
+
+function Roketo.get_account_id()
+	return Roketo.data.id
 end
 
 function Roketo.is_logged_in()

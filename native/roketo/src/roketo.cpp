@@ -3,26 +3,32 @@
 #define MODULE_NAME "roketo"
 
 #include <dmsdk/sdk.h>
+#include <stdlib.h>
+#include "game_utils.h"
 
 #if defined(DM_PLATFORM_HTML5)
 
 
 extern "C" {
-   void RoketoSdkJs_initNear();
+    void RoketoSdkJs_initNear();
     bool RoketoSdkJs_isLoggedIn();
     void RoketoSdkJs_login();
+    char * RoketoSdkJs_getAccountId();
     void RoketoSdkJs_contractGetGame(int idx);
+    void RoketoSdkJs_contractCreateGame(char const * firstPlayer,char const * secondPlayer, int fieldSize);
 
 }
 
 static int RoketoSdkJs_initNearLua(lua_State* L){
     DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 0);
     RoketoSdkJs_initNear();
     return 0;
 }
 
 static int RoketoSdkJs_isLoggedInLua(lua_State* L){
     DM_LUA_STACK_CHECK(L, 1);
+    game_utils::check_arg_count(L, 0);
     bool result = RoketoSdkJs_isLoggedIn();
     lua_pushboolean(L,result);
     return 1;
@@ -30,14 +36,35 @@ static int RoketoSdkJs_isLoggedInLua(lua_State* L){
 
 static int RoketoSdkJs_loginLua(lua_State* L){
     DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 0);
     RoketoSdkJs_login();
     return 0;
 }
 
+static int RoketoSdkJs_getAccountIdLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 1);
+    game_utils::check_arg_count(L, 0);
+    char * accountId = RoketoSdkJs_getAccountId();
+    lua_pushstring(L,accountId);
+    free(accountId);
+    return 1;
+}
+
 static int RoketoSdkJs_contractGetGameLua(lua_State* L){
     DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 1);
     int idx = lua_tonumber(L,1);
     RoketoSdkJs_contractGetGame(idx);
+    return 0;
+}
+
+static int RoketoSdkJs_contractCreateGameLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 3);
+    const char * firstPlayer = lua_tostring (L,1);
+    const char * secondPlayer = lua_tostring (L,2);
+    int fieldSize = lua_tonumber(L,3);
+    RoketoSdkJs_contractCreateGame(firstPlayer,secondPlayer,fieldSize);
     return 0;
 }
 
@@ -49,7 +76,9 @@ static const luaL_reg Module_methods[] =
     {"init_near", RoketoSdkJs_initNearLua},
     {"is_logged_in", RoketoSdkJs_isLoggedInLua},
     {"login", RoketoSdkJs_loginLua},
+    {"get_account_id", RoketoSdkJs_getAccountIdLua},
     {"contract_get_game", RoketoSdkJs_contractGetGameLua},
+    {"contract_create_game", RoketoSdkJs_contractCreateGameLua},
     {0, 0}
 };
 
