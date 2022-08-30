@@ -26,7 +26,7 @@ function View:init_gui()
 		roketo.contract_get_game(0)
 	end)
 	self.views.btn_create_game:set_input_listener(function()
-		roketo.contract_create_game(roketo.get_account_id(),1,5)
+		roketo.contract_create_game(roketo.get_account_id(),"d954mas2.testnet",5)
 	end)
 end
 
