@@ -31,6 +31,16 @@ var LibRoketoSdk = {
         const sdk = window.game_sdk
         return sdk.contractCreateGame(UTF8ToString(first_player),UTF8ToString(second_player), field_size);
     },
+
+    RoketoSdkJs_contractGetGamesList: function (player) {
+        const sdk = window.game_sdk
+        return sdk.contractGetGamesList(UTF8ToString(player));
+    },
+
+    RoketoSdkJs_contractGetGamesActiveList: function (player) {
+        const sdk = window.game_sdk
+        return sdk.contractGetGamesActiveList(UTF8ToString(player));
+    },
 }
 
 mergeInto(LibraryManager.library, LibRoketoSdk);
