@@ -25,16 +25,43 @@ function View:init_gui()
 	self.list_current = 1
 	self.lists = {
 		{ id = "active", data = { 1, 2, 3, 4, 5 }, root = gui.get_node(self.root_name .. "/game_list_active/bg"),
-		  list_id = self.root_name .. "/game_list_active/bg", stencil_id = self.root_name .. "/game_list_active/stencil",
+		  list_id = self.root_name .. "/game_list_active", stencil_id = self.root_name .. "/game_list_active/stencil",
 		  item_id = self.root_name .. "/game_list_active/listitem/root"
 		},
 		{ id = "all", data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, root = gui.get_node(self.root_name .. "/game_list_all/bg"),
-		  list_id = self.root_name .. "/game_list_all/bg", stencil_id = self.root_name .. "/game_list_all/stencil",
+		  list_id = self.root_name .. "/game_list_all", stencil_id = self.root_name .. "/game_list_all/stencil",
 		  item_id = self.root_name .. "/game_list_all/listitem/root"
 		},
 	}
-	self.refresh_fn = function()
-		--refresh list view
+	local scale_start = vmath.vector3(1)
+	local scale_pressed = vmath.vector3(0.9)
+	self.listitem_update = function(list, item)
+		gui.set_scale(item.root, scale_start)
+		if item.index == list.selected_item then
+
+		end
+
+		if item.index == list.pressed_item then
+			gui.set_scale(item.root, scale_pressed)
+		elseif item.index == list.over_item_now then
+			--gui.set_scale(item.root, scale_start)
+		elseif item.index == list.out_item_now then
+			--gui.set_scale(item.root, scale_start)
+		elseif item.index ~= list.over_item then
+			--gui.set_scale(item.root, scale_start)
+		else
+			gui.set_scale(item.root, scale_start)
+		end
+	end
+	self.listitem_refresh = function(list)
+		for _, item in ipairs(list.items) do
+			self.listitem_update(list, item)
+			gui.set_text(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/text")], tostring(item.data or "-"))
+		end
+	end
+	self.listitem_clicked = function(a)
+		local data = a.data[a.selected_item]
+		pprint(data)
 	end
 	self:list_changed()
 	self.views.btn_change_list:set_input_listener(function()
@@ -54,12 +81,10 @@ end
 
 function View:on_input(action_id, action)
 	if (self.ignore_input) then return false end
-	GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, action_id, action, {}, function(a)
-		local data = a.data[a.selected_item]
-	end)
-	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {}, function(a)
-		local data = a.data[a.selected_item]
-	end)
+	GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, action_id, action, {},
+			self.listitem_clicked, self.listitem_refresh)
+	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {},
+			self.listitem_clicked, self.listitem_refresh)
 	if (self.views.btn_change_list:on_input(action_id, action)) then return true end
 end
 
