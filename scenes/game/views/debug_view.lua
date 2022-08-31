@@ -20,6 +20,9 @@ function View:bind_vh()
 		btn_create_game = GUI.ButtonScale(self.root_name .. "/btn_create_game"),
 		btn_get_games_list = GUI.ButtonScale(self.root_name .. "/btn_get_games_list"),
 		btn_get_games_active_list = GUI.ButtonScale(self.root_name .. "/btn_get_games_active_list"),
+		btn_stream_timestamp = GUI.ButtonScale(self.root_name .. "/btn_stream_timestamp"),
+		btn_stream_is_premium = GUI.ButtonScale(self.root_name .. "/btn_stream_is_premium"),
+		btn_stream_buy = GUI.ButtonScale(self.root_name .. "/btn_stream_buy"),
 	}
 end
 function View:init_gui()
@@ -36,6 +39,18 @@ function View:init_gui()
 	self.views.btn_get_games_active_list:set_input_listener(function()
 		roketo.contract_get_games_active_list(roketo.get_account_id())
 	end)
+
+	self.views.btn_stream_timestamp:set_input_listener(function()
+		roketo.stream_calculate_end_timestamp()
+	end)
+
+	self.views.btn_stream_is_premium:set_input_listener(function()
+		roketo.stream_is_premium()
+	end)
+
+	self.views.btn_stream_buy:set_input_listener(function()
+		roketo.stream_buy_premium()
+	end)
 end
 
 function View:update(dt)
@@ -48,6 +63,9 @@ function View:on_input(action_id, action)
 	if (self.views.btn_get_game:on_input(action_id, action)) then return true end
 	if (self.views.btn_get_games_list:on_input(action_id, action)) then return true end
 	if (self.views.btn_get_games_active_list:on_input(action_id, action)) then return true end
+	if (self.views.btn_stream_timestamp:on_input(action_id, action)) then return true end
+	if (self.views.btn_stream_is_premium:on_input(action_id, action)) then return true end
+	if (self.views.btn_stream_buy:on_input(action_id, action)) then return true end
 end
 
 return View
