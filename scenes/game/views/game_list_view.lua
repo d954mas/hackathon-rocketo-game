@@ -21,6 +21,15 @@ function View:bind_vh()
 		btn_change_list = GUI.ButtonScale(self.root_name .. "/btn_change_list")
 	}
 end
+
+function View:update_game_cell(list,item,info)
+	local lbl_oponnent = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/oponnent")])
+	if(info.first_player == roketo.get_account_id())then
+		gui.set_text(lbl_oponnent,info.second_player)
+	else
+		gui.set_text(lbl_oponnent,info.first_player)
+	end
+end
 function View:init_gui()
 	Base.init_gui(self)
 	self.list_current = 1
@@ -57,7 +66,16 @@ function View:init_gui()
 	self.listitem_refresh = function(list)
 		for _, item in ipairs(list.items) do
 			self.listitem_update(list, item)
-			gui.set_text(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/text")], tostring(item.data or "-"))
+			if (item.data) then
+				if (item.__prev_data ~= item.data) then
+					item.__prev_data = item.data
+					gui.set_text(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/id")], tostring(item.data or "-"))
+					local info = WORLD.games_receiver:get_game_info(item.data)
+					if (info) then
+						self:update_game_cell(list,item,info)
+					end
+				end
+			end
 		end
 	end
 	self.listitem_clicked = function(a)
@@ -76,12 +94,28 @@ function View:init_gui()
 	self.lists[2].list = GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, nil, nil, {},
 			self.listitem_clicked, self.listitem_refresh)
 
-	WORLD.games_receiver:add_cb_game_info_changed(function()
-		self:listitem_refresh(self.lists[1].list)
+	WORLD.games_receiver:add_cb_game_active_list_changed(function()
+		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
+		self.listitem_refresh(assert(self.lists[1].list))
+		ctx:remove()
 	end)
 
-	WORLD.games_receiver:add_cb_game_info_changed(function()
-		self:listitem_refresh()
+	WORLD.games_receiver:add_cb_game_list_changed(function()
+		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
+		self.listitem_refresh(assert(self.lists[2].list))
+		ctx:remove()
+	end)
+
+	WORLD.games_receiver:add_cb_game_info_changed(function(info)
+		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
+		for _,list in ipairs(self.lists)do
+			for _,item in ipairs(list.list.items)do
+				if(item.data==info.idx)then
+					self:update_game_cell(list.list,item,info.game)
+				end
+			end
+		end
+		ctx:remove()
 	end)
 end
 
