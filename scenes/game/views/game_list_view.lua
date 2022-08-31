@@ -1,6 +1,7 @@
 local COMMON = require "libs.common"
 local GUI = require "libs_project.gui.gui"
 local GOOEY = require "gooey.gooey"
+local WORLD = require "world.world"
 
 local Base = require "scenes.game.views.base_view"
 
@@ -24,11 +25,11 @@ function View:init_gui()
 	Base.init_gui(self)
 	self.list_current = 1
 	self.lists = {
-		{ id = "active", data = { 1, 2, 3, 4, 5 }, root = gui.get_node(self.root_name .. "/game_list_active/bg"),
+		{ id = "active", data = WORLD.games_receiver.games_active_list, root = gui.get_node(self.root_name .. "/game_list_active/bg"),
 		  list_id = self.root_name .. "/game_list_active", stencil_id = self.root_name .. "/game_list_active/stencil",
 		  item_id = self.root_name .. "/game_list_active/listitem/root"
 		},
-		{ id = "all", data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, root = gui.get_node(self.root_name .. "/game_list_all/bg"),
+		{ id = "all", data = WORLD.games_receiver.games_all_list, root = gui.get_node(self.root_name .. "/game_list_all/bg"),
 		  list_id = self.root_name .. "/game_list_all", stencil_id = self.root_name .. "/game_list_all/stencil",
 		  item_id = self.root_name .. "/game_list_all/listitem/root"
 		},
@@ -61,7 +62,6 @@ function View:init_gui()
 	end
 	self.listitem_clicked = function(a)
 		local data = a.data[a.selected_item]
-		pprint(data)
 	end
 	self:list_changed()
 	self.views.btn_change_list:set_input_listener(function()
@@ -71,8 +71,18 @@ function View:init_gui()
 		end
 		self:list_changed()
 	end)
-	--touch to create initial lists
-	self:on_input(COMMON.HASHES.INPUT.TOUCH, { screen_x = 0, screen_y = 0, x = 0, y = 0 })
+	self.lists[1].list = GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, nil, nil, {},
+			self.listitem_clicked, self.listitem_refresh)
+	self.lists[2].list = GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, nil, nil, {},
+			self.listitem_clicked, self.listitem_refresh)
+
+	WORLD.games_receiver:add_cb_game_info_changed(function()
+		self:listitem_refresh(self.lists[1].list)
+	end)
+
+	WORLD.games_receiver:add_cb_game_info_changed(function()
+		self:listitem_refresh()
+	end)
 end
 
 function View:update(dt)

@@ -10,6 +10,10 @@ var LibRoketoSdk = {
         const sdk = window.game_sdk
         return sdk.isLoggedIn();
     },
+    RoketoSdkJs_isReady: function () {
+        const sdk = window.game_sdk
+        return sdk.isReady();
+    },
 
     RoketoSdkJs_login: function () {
         const sdk = window.game_sdk

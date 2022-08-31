@@ -114,8 +114,8 @@ function Script:init()
 	if (jstodef) then
 		jstodef.add_listener(function(_, message_id, message)
 			if (message_id and COMMON.LUME.string_start_with(message_id, "Near")) then
-				COMMON.i(message_id, "NEAR")
-				if (message) then pprint(message) end
+			--	COMMON.i(message_id, "NEAR")
+			--	if (message) then pprint(message) end
 				COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = message_id, message = message })
 			else
 				COMMON.EVENT_BUS:event(COMMON.EVENTS.JSTODEF, { message_id = message_id, message = message })
