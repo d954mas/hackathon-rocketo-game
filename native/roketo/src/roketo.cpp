@@ -18,6 +18,9 @@ extern "C" {
      void RoketoSdkJs_contractCreateGame(char const * firstPlayer,char const * secondPlayer, int fieldSize);
     void RoketoSdkJs_contractGetGamesList(char const * player);
     void RoketoSdkJs_contractGetGamesActiveList(char const * player);
+    void RoketoSdkJs_streamBuyPremium();
+    void RoketoSdkJs_streamIsPremium();
+    void RoketoSdkJs_streamCalculateEndTimestamp();
 
 }
 
@@ -86,6 +89,27 @@ static int RoketoSdkJs_contractGetGamesActiveListLua(lua_State* L){
     return 0;
 }
 
+static int RoketoSdkJs_streamBuyPremiumLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 0);
+    RoketoSdkJs_streamBuyPremium();
+    return 0;
+}
+
+static int RoketoSdkJs_streamIsPremiumLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 0);
+    RoketoSdkJs_streamIsPremium();
+    return 0;
+}
+
+static int RoketoSdkJs_streamCalculateEndTimestampLua(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    game_utils::check_arg_count(L, 0);
+    RoketoSdkJs_streamCalculateEndTimestamp();
+    return 0;
+}
+
 
 
 // Functions exposed to Lua
@@ -99,6 +123,9 @@ static const luaL_reg Module_methods[] =
     {"contract_get_game", RoketoSdkJs_contractGetGameLua},
     {"contract_get_games_list", RoketoSdkJs_contractGetGamesListLua},
     {"contract_get_games_active_list", RoketoSdkJs_contractGetGamesActiveListLua},
+    {"stream_buy_premium", RoketoSdkJs_streamBuyPremiumLua},
+    {"stream_is_premium", RoketoSdkJs_streamIsPremiumLua},
+    {"stream_calculate_end_timestamp", RoketoSdkJs_streamCalculateEndTimestampLua},
     {0, 0}
 };
 
