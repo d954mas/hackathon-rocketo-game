@@ -41,6 +41,20 @@ var LibRoketoSdk = {
         const sdk = window.game_sdk
         return sdk.contractGetGamesActiveList(UTF8ToString(player));
     },
+
+    RoketoSdkJs_streamBuyPremium: function () {
+        const sdk = window.game_sdk
+        return sdk.streamBuyPremium();
+    },
+
+    RoketoSdkJs_streamIsPremium: function () {
+        const sdk = window.game_sdk
+        return sdk.streamIsPremium();
+    },
+    RoketoSdkJs_streamCalculateEndTimestamp: function () {
+        const sdk = window.game_sdk
+        return sdk.streamCalculateEndTimestamp();
+    },
 }
 
 mergeInto(LibraryManager.library, LibRoketoSdk);
