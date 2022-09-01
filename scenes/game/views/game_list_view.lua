@@ -31,7 +31,7 @@ function View:update_game_cell(list, item, info)
 	if (info.first_player == roketo.get_account_id()) then
 		oponnent_name = info.second_player
 	else
-		oponnent_name = info.first_player .. info.first_player .. "." .. info.first_player
+		oponnent_name = info.first_player
 	end
 	gui.set_text(lbl_oponnent, oponnent_name)
 	local metrics = resource.get_text_metrics(gui.get_font_resource(gui.get_font(lbl_oponnent)),

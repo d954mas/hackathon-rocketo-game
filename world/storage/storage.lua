@@ -17,7 +17,7 @@ local TAG = "Storage"
 ---@class Storage
 local Storage = COMMON.class("Storage")
 
-Storage.FILE_PATH = "d954mas_mine_cards"
+Storage.FILE_PATH = "d954mas_crypto_neon_hex"
 Storage.VERSION = 11
 Storage.AUTOSAVE = 30 --seconds
 Storage.CLEAR = CONSTANTS.VERSION_IS_DEV and false --BE CAREFUL. Do not use in prod

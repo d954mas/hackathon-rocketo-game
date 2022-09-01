@@ -54,6 +54,10 @@ images {
   image: "/assets/images/gui/ui/game_cell.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/assets/images/gui/ui/btn_login.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0
