@@ -1,6 +1,7 @@
 local COMMON = require "libs.common"
 local GUI = require "libs_project.gui.gui"
 local GOOEY = require "gooey.gooey"
+local CLIPBOARD = require "libs.clipboard"
 
 local Base = require "scenes.game.views.base_view"
 
@@ -18,6 +19,7 @@ function View:bind_vh()
 
 	self.views = {
 		btn_new_game = GUI.ButtonScale(self.root_name .. "/btn_new_game"),
+		btn_input_clear = GUI.ButtonScale(self.root_name .. "/name_input/clear"),
 		checkboxes = {
 			{ chb = GUI.CheckboxWithLabel(self.root_name .. "/chb_7"), value = 7 },
 			{ chb = GUI.CheckboxWithLabel(self.root_name .. "/chb_11"), value = 11 },
@@ -39,6 +41,19 @@ function View:init_gui()
 	self.views.checkboxes[1].chb:set_checked(true)
 	self.checkbox_selected = 1
 
+	self.views.btn_new_game:set_input_listener(function()
+
+	end)
+
+	self.views.btn_input_clear:set_input_listener(function()
+		local gui_object = GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, nil, nil, self.name_input_config,
+				self.name_input_refresh)
+		gui_object.set_text("")
+		--update
+		GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, nil, nil, self.name_input_config,
+				self.name_input_refresh)
+	end)
+
 	self.name_input_config = {
 		empty_text = "opponent name",
 		max_length = 99
@@ -49,10 +64,10 @@ function View:init_gui()
 		local node_id = self.root_name .. "/name_input"
 		if input.empty and not input.selected then
 			gui.set_text(input.node, config and config.empty_text or "")
-			gui.set_color(input.node, vmath.vector4(0.8,0.8,0.8,0.66))
+			gui.set_color(input.node, vmath.vector4(0.8, 0.8, 0.8, 0.66))
 		else
 			--gui.set_text(input.node,input.text)
-			gui.set_color(input.node, vmath.vector4(1,1,1,1))
+			gui.set_color(input.node, vmath.vector4(1, 1, 1, 1))
 		end
 
 		local cursor = gui.get_node(node_id .. "/cursor")
@@ -69,6 +84,25 @@ function View:init_gui()
 	end
 	GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, nil, nil, self.name_input_config,
 			self.name_input_refresh)
+
+	self.clipboard_listener = function(message_id, message)
+		if (message_id == CLIPBOARD.CLIPBOARD_PASTE) then
+			local paste = message.value
+			if (paste and paste ~= "") then
+				COMMON.CONTEXT:set_context_top_game_gui()
+				local gui_object = GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, nil, nil, self.name_input_config,
+						self.name_input_refresh)
+				if (gui_object.selected) then
+					gui_object.set_text(gui_object.text .. tostring(paste))
+					--update
+					GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, nil, nil, self.name_input_config,
+							self.name_input_refresh)
+				end
+			end
+		end
+	end
+
+	CLIPBOARD.add_listener(self.clipboard_listener)
 end
 
 function View:update(dt)
@@ -76,12 +110,9 @@ function View:update(dt)
 end
 
 function View:on_input(action_id, action)
-	if (self.ignore_input) then
-		return false
-	end
-	if (self.views.btn_new_game:on_input(action_id, action)) then
-		return true
-	end
+	if (self.ignore_input) then return false end
+	if (self.views.btn_new_game:on_input(action_id, action)) then return true end
+	if (self.views.btn_input_clear:on_input(action_id, action)) then return true end
 	GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, action_id, action,
 			self.name_input_config, self.name_input_refresh)
 	for _, chb in ipairs(self.views.checkboxes) do
