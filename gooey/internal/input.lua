@@ -1,7 +1,6 @@
 local core = require "gooey.internal.core"
-local core = require "gooey.internal.core"
 local actions = require "gooey.actions"
-local utf8 = string --not use utf8
+local utf8 = require "gooey.internal.utf8"
 
 local M = {}
 
@@ -14,7 +13,7 @@ local function get_space_width(font)
 		local no_space = gui.get_text_metrics(font, "1", 0, false, 0, 0).width
 		local with_space = gui.get_text_metrics(font, " 1", 0, false, 0, 0).width
 		space_width[font] = with_space - no_space
-	end 
+	end
 	return space_width[font]
 end
 
@@ -86,11 +85,24 @@ function INPUT.set_text(input, text)
 		input.empty = #text == 0 and #marked_text == 0
 
 		-- measure it
-		input.text_width = get_text_width(input.node, text)
-		input.marked_text_width = get_text_width(input.node, marked_text)
-		input.total_width = input.text_width + input.marked_text_width
+		local text_width = get_text_width(input.node, text)
+		local marked_text_width = get_text_width(input.node, marked_text)
 
-		gui.set_text(input.node,text .. marked_text)
+		-- prevent text from overflowing the input field
+		-- this will get increasingly expensive the longer the text
+		-- future improvement is to make a best guess and then either add or
+		-- remove characters depending on if the text is too short or long
+		local field_width = gui.get_size(input.node).x * gui.get_scale(input.node).x
+		while (text_width + marked_text_width) > field_width do
+			text = text:sub(2)
+			text_width = get_text_width(input.node, text)
+		end
+
+		input.text_width = text_width
+		input.marked_text_width = marked_text_width
+		input.total_width = text_width + marked_text_width
+
+		gui.set_text(input.node, text .. marked_text)
 	end
 end
 function INPUT.set_long_pressed_time(input, time)
@@ -105,13 +117,16 @@ function M.input(node_id, keyboard_type, action_id, action, config, refresh_fn)
 	local input = core.instance(node_id, inputfields, INPUT)
 	input.enabled = core.is_enabled(node)
 	input.node = node
+	input.node_id = node_id
 	input.refresh_fn = refresh_fn
-	
+	input.deselected_now = false
+	input.selected_now = false
+
 	local use_marked_text = (config and config.use_marked_text == nil) and true or (config and config.use_marked_text)
 	input.text = input.text or "" .. (not use_marked_text and input.marked_text or "")
 	input.marked_text = input.marked_text or ""
 	input.keyboard_type = keyboard_type
-	
+
 	if not action then
 		input.empty = #input.text == 0 and #input.marked_text == 0
 		input.refresh()
@@ -123,12 +138,16 @@ function M.input(node_id, keyboard_type, action_id, action, config, refresh_fn)
 	if input.enabled then
 		input.deselected_now = false
 		if input.released_now then
+			if not input.selected then
+				input.selected_now = true
+			end
 			input.selected = true
 			input.marked_text = ""
 			gui.reset_keyboard()
 			gui.show_keyboard(keyboard_type, true)
 		elseif input.selected and action.pressed and action_id == actions.TOUCH and not input.over then
 			input.selected = false
+			input.deselected_now = true
 			input.text = input.text .. (not use_marked_text and input.marked_text or "")
 			input.marked_text = ""
 			gui.hide_keyboard()
@@ -156,14 +175,14 @@ function M.input(node_id, keyboard_type, action_id, action, config, refresh_fn)
 					end
 					input.marked_text = ""
 				end
-			-- new marked text input (uncommitted text)
+				-- new marked text input (uncommitted text)
 			elseif action_id == actions.MARKED_TEXT then
 				input.consumed = true
 				input.marked_text = action.text or ""
 				if config and config.max_length then
 					input.marked_text = utf8.sub(input.marked_text, 1, config.max_length)
 				end
-			-- input deletion
+				-- input deletion
 			elseif action_id == actions.BACKSPACE and (action.pressed or action.repeated) then
 				input.consumed = true
 				input.text = utf8.sub(input.text, 1, -2)
@@ -171,6 +190,10 @@ function M.input(node_id, keyboard_type, action_id, action, config, refresh_fn)
 		end
 
 		input.set_text(input.text)
+	end
+	if input.empty then
+		local text = input.selected and "" or (config and config.empty_text or "")
+		gui.set_text(input.node, text)
 	end
 	if refresh_fn then refresh_fn(input) end
 	return input

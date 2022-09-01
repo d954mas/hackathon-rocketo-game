@@ -1,7 +1,7 @@
 script: ""
 fonts {
   name: "roboto_mono_bold"
-  font: "/assets/fonts/roboto_mono_bold.font"
+  font: "/assets/fonts/game_font.font"
 }
 textures {
   name: "dirtylarry"
@@ -66,6 +66,7 @@ nodes {
   alpha: 1.0
   template_node_child: false
   size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
 }
 nodes {
   position {
@@ -87,7 +88,7 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 280.0
     y: 100.0
     z: 0.0
     w: 1.0
@@ -129,11 +130,12 @@ nodes {
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
+  custom_type: 0
 }
 nodes {
   position {
     x: 12.0
-    y: 0.0
+    y: 2.0
     z: 0.0
     w: 1.0
   }
@@ -150,7 +152,7 @@ nodes {
     w: 1.0
   }
   size {
-    x: 2.0
+    x: 4.0
     y: 40.0
     z: 0.0
     w: 1.0
@@ -184,6 +186,7 @@ nodes {
   alpha: 1.0
   template_node_child: false
   size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
 }
 layers {
   name: "below"

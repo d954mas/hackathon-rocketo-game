@@ -33,6 +33,20 @@ end
 function Roketo.is_logged_in()
 	return Roketo.data.login
 end
+function Roketo.is_ready()
+	return Roketo.data.login
+end
+function Roketo.contract_get_games_list()
+
+end
+
+function Roketo.contract_get_games_active_list()
+
+end
+
+function Roketo.contract_get_game()
+
+end
 
 function Roketo.login()
 	Roketo.parallel:add_action(function()

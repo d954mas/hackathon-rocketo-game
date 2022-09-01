@@ -44,7 +44,7 @@ key_trigger {
 }
 key_trigger {
   input: KEY_BACKSPACE
-  action: "key_backspace"
+  action: "backspace"
 }
 key_trigger {
   input: KEY_SPACE
