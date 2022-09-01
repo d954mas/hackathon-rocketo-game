@@ -14,11 +14,14 @@ end
 
 function View:bind_vh()
 	self.vh = {
-		btn_change_list_lbl = gui.get_node(self.root_name .. "/btn_change_list/label")
+		tabs = {
+			active = { root = gui.get_node("game_list_view/tab_active"), lbl = gui.get_node("game_list_view/tab_active/text") },
+			all = { root = gui.get_node("game_list_view/tab_all"), lbl = gui.get_node("game_list_view/tab_all/text") }
+		}
 	}
 
 	self.views = {
-		btn_change_list = GUI.ButtonScale(self.root_name .. "/btn_change_list")
+
 	}
 end
 
@@ -36,11 +39,11 @@ function View:init_gui()
 	self.lists = {
 		{ id = "active", data = WORLD.games_receiver.games_active_list, root = gui.get_node(self.root_name .. "/game_list_active/bg"),
 		  list_id = self.root_name .. "/game_list_active", stencil_id = self.root_name .. "/game_list_active/stencil",
-		  item_id = self.root_name .. "/game_list_active/listitem/root"
+		  item_id = self.root_name .. "/game_list_active/listitem/root", tab = self.vh.tabs.active
 		},
 		{ id = "all", data = WORLD.games_receiver.games_all_list, root = gui.get_node(self.root_name .. "/game_list_all/bg"),
 		  list_id = self.root_name .. "/game_list_all", stencil_id = self.root_name .. "/game_list_all/stencil",
-		  item_id = self.root_name .. "/game_list_all/listitem/root"
+		  item_id = self.root_name .. "/game_list_all/listitem/root", tab = self.vh.tabs.all
 		},
 	}
 	local scale_start = vmath.vector3(1)
@@ -87,13 +90,6 @@ function View:init_gui()
 		end
 	end
 	self:list_changed()
-	self.views.btn_change_list:set_input_listener(function()
-		self.list_current = self.list_current + 1
-		if (self.list_current > #self.lists) then
-			self.list_current = 1
-		end
-		self:list_changed()
-	end)
 	self.lists[1].list = GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, nil, nil, {},
 			self.listitem_clicked, self.listitem_refresh)
 	self.lists[2].list = GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, nil, nil, {},
@@ -138,16 +134,30 @@ function View:on_input(action_id, action)
 			self.listitem_clicked, self.listitem_refresh)
 	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {},
 			self.listitem_clicked, self.listitem_refresh)
-	if (self.views.btn_change_list:on_input(action_id, action)) then return true end
+	if (action_id == COMMON.HASHES.INPUT.TOUCH and action.pressed) then
+		for idx, list in ipairs(self.lists) do
+			if (gui.pick_node(list.tab.root, action.x, action.y)) then
+				self.list_current = idx
+				self:list_changed()
+				return true
+			end
+		end
+	end
 end
 
 function View:list_changed()
 	local list = self.lists[self.list_current]
+	for _, tab in pairs(self.vh.tabs) do
+		gui.play_flipbook(tab.root, COMMON.HASHES.hash("tab_normal"))
+		gui.set_color(tab.lbl, vmath.vector3(89 / 255, 89 / 255, 89 / 255))
+	end
 	for _, l in ipairs(self.lists) do
 		gui.set_enabled(l.root, false)
 	end
 	gui.set_enabled(list.root, true)
-	gui.set_text(self.vh.btn_change_list_lbl, string.upper(list.id))
+
+	gui.play_flipbook(list.tab.root, COMMON.HASHES.hash("tab_selected"))
+	gui.set_color(list.tab.lbl, vmath.vector3(1, 1, 1))
 end
 
 return View
