@@ -2157,7 +2157,7 @@ nodes {
   parent: "game_list_view/game_list_all/listitem/root"
   layer: "text"
   inherit_alpha: true
-  alpha: 1.0
+  alpha: 0.0
   outline_alpha: 0.0
   shadow_alpha: 1.0
   template_node_child: true
@@ -2191,9 +2191,9 @@ nodes {
     w: 1.0
   }
   color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 0.8
+    y: 0.8
+    z: 0.8
     w: 1.0
   }
   type: TYPE_TEXT
@@ -2205,9 +2205,9 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SW
   outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 0.0
+    y: 0.0
+    z: 0.0
     w: 1.0
   }
   shadow {
@@ -2222,7 +2222,7 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 0.0
+  outline_alpha: 1.0
   shadow_alpha: 1.0
   template_node_child: true
   text_leading: 1.0
@@ -2231,8 +2231,8 @@ nodes {
 }
 nodes {
   position {
-    x: 48.0
-    y: 6.0
+    x: 14.0
+    y: 48.0
     z: 0.0
     w: 1.0
   }
@@ -2243,8 +2243,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.5
-    y: 0.5
+    x: 0.75
+    y: 0.75
     z: 1.0
     w: 1.0
   }
@@ -2255,23 +2255,23 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: ""
+  text: "YOU TURN"
   font: "game_font"
   id: "game_list_view/game_list_all/listitem/status"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 0.0
+    y: 0.0
+    z: 0.0
     w: 1.0
   }
   shadow {
@@ -2286,11 +2286,67 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 0.0
+  outline_alpha: 1.0
   shadow_alpha: 1.0
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
+  custom_type: 0
+}
+nodes {
+  position {
+    x: -82.0
+    y: 48.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.56
+    y: 0.56
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 44.0
+    y: 50.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/hex_red"
+  id: "game_list_view/game_list_all/listitem/hex"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "game_list_view/game_list_all/listitem/root"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: true
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {
@@ -2614,7 +2670,7 @@ nodes {
   parent: "game_list_view/game_list_active/listitem/root"
   layer: "text"
   inherit_alpha: true
-  alpha: 1.0
+  alpha: 0.0
   outline_alpha: 0.0
   shadow_alpha: 1.0
   template_node_child: true
@@ -2648,9 +2704,9 @@ nodes {
     w: 1.0
   }
   color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 0.8
+    y: 0.8
+    z: 0.8
     w: 1.0
   }
   type: TYPE_TEXT
@@ -2662,9 +2718,9 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_SW
   outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 0.0
+    y: 0.0
+    z: 0.0
     w: 1.0
   }
   shadow {
@@ -2679,7 +2735,7 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 0.0
+  outline_alpha: 1.0
   shadow_alpha: 1.0
   template_node_child: true
   text_leading: 1.0
@@ -2688,8 +2744,8 @@ nodes {
 }
 nodes {
   position {
-    x: 48.0
-    y: 6.0
+    x: 14.0
+    y: 48.0
     z: 0.0
     w: 1.0
   }
@@ -2700,8 +2756,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.5
-    y: 0.5
+    x: 0.75
+    y: 0.75
     z: 1.0
     w: 1.0
   }
@@ -2712,23 +2768,23 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: ""
+  text: "YOU TURN"
   font: "game_font"
   id: "game_list_view/game_list_active/listitem/status"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
+    x: 0.0
+    y: 0.0
+    z: 0.0
     w: 1.0
   }
   shadow {
@@ -2743,11 +2799,67 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 0.0
+  outline_alpha: 1.0
   shadow_alpha: 1.0
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
+  custom_type: 0
+}
+nodes {
+  position {
+    x: -82.0
+    y: 48.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.56
+    y: 0.56
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 44.0
+    y: 50.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/hex_red"
+  id: "game_list_view/game_list_active/listitem/hex"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "game_list_view/game_list_active/listitem/root"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: true
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {

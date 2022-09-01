@@ -28,7 +28,8 @@ end
 function View:update_game_cell(list, item, info)
 	local lbl_oponnent = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/oponnent")])
 	local oponnent_name = ""
-	if (info.first_player == roketo.get_account_id()) then
+	local is_first = info.first_player == roketo.get_account_id()
+	if (is_first) then
 		oponnent_name = info.second_player
 	else
 		oponnent_name = info.first_player
@@ -41,6 +42,27 @@ function View:update_game_cell(list, item, info)
 		gui.set_scale(lbl_oponnent, vmath.vector3(scale))
 	else
 		gui.set_scale(lbl_oponnent, vmath.vector3(0.5))
+	end
+	gui.play_flipbook(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/hex")],
+			COMMON.HASHES.hash(is_first and "hex_red" or "hex_blue"))
+	local first_turn = info.turn % 2 == 0
+	local is_my_turn = first_turn == is_first
+	local is_win = info.is_finished and (not is_my_turn)
+	local is_lose = info.is_finished and (is_my_turn)
+
+	if (info.is_finished and info.give_up > 0) then
+		is_win = (is_first and info.give_up == 2) or (not is_first and info.give_up == 1)
+		is_lose = (is_first and info.give_up == 1) or (not is_first and info.give_up == 2)
+	end
+	local lbl_status =  assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/status")])
+	if(is_win)then
+		gui.set_text(lbl_status,info.give_up>0 and "WIN (GIVE UP)" or "WIN")
+	elseif(is_lose)then
+		gui.set_text(lbl_status,info.give_up>0 and "LOSE (GIVE UP)" or "LOSE")
+	elseif(is_my_turn)then
+		gui.set_text(lbl_status,"YOU TURN")
+	else
+		gui.set_text(lbl_status,"WAIT TURN")
 	end
 end
 function View:init_gui()
