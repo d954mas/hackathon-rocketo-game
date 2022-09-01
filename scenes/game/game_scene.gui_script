@@ -95,12 +95,14 @@ function Script:show_start_ui()
 	self.views.game_list_view:set_enabled(true)
 	self.views.new_game_view:set_enabled(true)
 	self.views.game_view:set_enabled(true)
-	self.views.game_view:set_game(self.views.game_view.TEST_GAME.game, 0)
+	--self.views.game_view:set_game(self.views.game_view.TEST_GAME.game, 0)
 end
 
 function Script:update(dt)
 	BaseGuiScript.update(self, dt)
 	gui.set_text(self.vh.lbl_account_id, roketo.get_account_id() or "not logged in")
+	self.views.game_list_view:update(dt)
+	self.views.game_view:update(dt)
 end
 
 function Script:on_input(action_id, action)
