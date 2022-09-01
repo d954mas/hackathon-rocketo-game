@@ -27,10 +27,20 @@ end
 
 function View:update_game_cell(list, item, info)
 	local lbl_oponnent = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/oponnent")])
+	local oponnent_name = ""
 	if (info.first_player == roketo.get_account_id()) then
-		gui.set_text(lbl_oponnent, info.second_player)
+		oponnent_name = info.second_player
 	else
-		gui.set_text(lbl_oponnent, info.first_player)
+		oponnent_name = info.first_player .. info.first_player .. "." .. info.first_player
+	end
+	gui.set_text(lbl_oponnent, oponnent_name)
+	local metrics = resource.get_text_metrics(gui.get_font_resource(gui.get_font(lbl_oponnent)),
+			oponnent_name)
+	if (metrics.width > gui.get_size(lbl_oponnent).x) then
+		local scale = 0.5 * gui.get_size(lbl_oponnent).x / metrics.width
+		gui.set_scale(lbl_oponnent, vmath.vector3(scale))
+	else
+		gui.set_scale(lbl_oponnent, vmath.vector3(0.5))
 	end
 end
 function View:init_gui()
@@ -50,11 +60,17 @@ function View:init_gui()
 	local scale_pressed = vmath.vector3(0.9)
 	self.listitem_update = function(list, item)
 		gui.set_scale(item.root, scale_start)
+		if (not list.have_scrolled) then
+			if item == list.pressed_item then
+				gui.set_scale(item.root, scale_pressed)
+			end
+		end
+
 		if item == list.selected_item then
 
 		end
 
-		if item == list.pressed_item then
+		--[[if item == list.pressed_item then
 			gui.set_scale(item.root, scale_pressed)
 		elseif item == list.over_item_now then
 			--gui.set_scale(item.root, scale_start)
@@ -64,7 +80,7 @@ function View:init_gui()
 			--gui.set_scale(item.root, scale_start)
 		else
 			gui.set_scale(item.root, scale_start)
-		end
+		end--]]
 	end
 	self.listitem_refresh = function(list)
 		for _, item in ipairs(list.items) do

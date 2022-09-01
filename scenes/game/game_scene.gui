@@ -2034,7 +2034,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: -50.0
+    y: -62.5
     z: 0.0
     w: 1.0
   }
@@ -2051,8 +2051,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 190.0
+    y: 150.0
     z: 0.0
     w: 1.0
   }
@@ -2107,8 +2107,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 80.0
+    x: 190.0
+    y: 125.0
     z: 0.0
     w: 1.0
   }
@@ -2120,7 +2120,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/white"
+  texture: "gui/game_cell"
   id: "game_list_view/game_list_all/listitem/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -2140,7 +2140,7 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_MANUAL
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {
@@ -2209,8 +2209,8 @@ nodes {
 }
 nodes {
   position {
-    x: -98.0
-    y: -38.0
+    x: -92.0
+    y: -60.0
     z: 0.0
     w: 1.0
   }
@@ -2227,20 +2227,20 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 368.0
     y: 100.0
     z: 0.0
     w: 1.0
   }
   color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: ""
+  text: "d954mas.testnett.d954mas.testnett"
   font: "game_font"
   id: "game_list_view/game_list_all/listitem/oponnent"
   xanchor: XANCHOR_NONE
@@ -2491,7 +2491,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: -50.0
+    y: -62.5
     z: 0.0
     w: 1.0
   }
@@ -2508,8 +2508,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 190.0
+    y: 150.0
     z: 0.0
     w: 1.0
   }
@@ -2564,8 +2564,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 80.0
+    x: 190.0
+    y: 125.0
     z: 0.0
     w: 1.0
   }
@@ -2577,7 +2577,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/white"
+  texture: "gui/game_cell"
   id: "game_list_view/game_list_active/listitem/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -2597,7 +2597,7 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_MANUAL
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {
@@ -2666,8 +2666,8 @@ nodes {
 }
 nodes {
   position {
-    x: -98.0
-    y: -38.0
+    x: -92.0
+    y: -60.0
     z: 0.0
     w: 1.0
   }
@@ -2684,20 +2684,20 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
+    x: 368.0
     y: 100.0
     z: 0.0
     w: 1.0
   }
   color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: ""
+  text: "d954mas.testnett.d954mas.testnett"
   font: "game_font"
   id: "game_list_view/game_list_active/listitem/oponnent"
   xanchor: XANCHOR_NONE
