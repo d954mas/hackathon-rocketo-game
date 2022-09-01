@@ -95,7 +95,7 @@ function Script:show_start_ui()
 	self.views.game_list_view:set_enabled(true)
 	self.views.new_game_view:set_enabled(true)
 	self.views.game_view:set_enabled(true)
-	self.views.game_view:set_game(self.views.game_view.TEST_GAME.game)
+	self.views.game_view:set_game(self.views.game_view.TEST_GAME.game, 0)
 end
 
 function Script:update(dt)
