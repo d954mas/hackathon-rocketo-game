@@ -17,8 +17,6 @@ local SOUNDS = require "libs.sounds"
 
 local WORLD = require "world.world"
 
-local CURTAINS = require "curtains.curtains"
-
 local YA = require "libs.yagames.yagames"
 local JSON = require "libs.json"
 local CRYPTO = require "libs.crypto"
@@ -228,7 +226,6 @@ function Script:update(dt)
 	DEBUG_INFO.update(dt)
 	WORLD:update(dt)
 
-	CURTAINS:update(dt)
 end
 
 function Script:final()
