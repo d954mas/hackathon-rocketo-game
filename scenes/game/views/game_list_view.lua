@@ -66,7 +66,7 @@ function View:init_gui()
 	self.listitem_refresh = function(list)
 		for _, item in ipairs(list.items) do
 			self.listitem_update(list, item)
-			if (item.data) then
+			if (item.data and item.data ~= "") then
 				if (item.__prev_data ~= item.data) then
 					item.__prev_data = item.data
 					gui.set_text(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/id")], tostring(item.data or "-"))
@@ -97,12 +97,16 @@ function View:init_gui()
 	WORLD.games_receiver:add_cb_game_active_list_changed(function()
 		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
 		self.listitem_refresh(assert(self.lists[1].list))
+		GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, nil, nil, {},
+				self.listitem_clicked, self.listitem_refresh)
 		ctx:remove()
 	end)
 
 	WORLD.games_receiver:add_cb_game_list_changed(function()
 		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
 		self.listitem_refresh(assert(self.lists[2].list))
+		GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, nil, nil, {},
+				self.listitem_clicked, self.listitem_refresh)
 		ctx:remove()
 	end)
 
