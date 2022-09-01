@@ -45,6 +45,9 @@ function View:update_game_cell(list, item, info)
 	end
 	gui.play_flipbook(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/hex")],
 			COMMON.HASHES.hash(is_first and "hex_red" or "hex_blue"))
+
+
+
 	local first_turn = info.turn % 2 == 0
 	local is_my_turn = first_turn == is_first
 	local is_win = info.is_finished and (not is_my_turn)
@@ -54,19 +57,20 @@ function View:update_game_cell(list, item, info)
 		is_win = (is_first and info.give_up == 2) or (not is_first and info.give_up == 1)
 		is_lose = (is_first and info.give_up == 1) or (not is_first and info.give_up == 2)
 	end
-	local lbl_status =  assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/status")])
-	if(is_win)then
-		gui.set_text(lbl_status,info.give_up>0 and "WIN (GIVE UP)" or "WIN")
-	elseif(is_lose)then
-		gui.set_text(lbl_status,info.give_up>0 and "LOSE (GIVE UP)" or "LOSE")
-	elseif(is_my_turn)then
-		gui.set_text(lbl_status,"YOU TURN")
+	local lbl_status = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/status")])
+	if (is_win) then
+		gui.set_text(lbl_status, info.give_up > 0 and "WIN (GIVE UP)" or "WIN")
+	elseif (is_lose) then
+		gui.set_text(lbl_status, info.give_up > 0 and "LOSE (GIVE UP)" or "LOSE")
+	elseif (is_my_turn) then
+		gui.set_text(lbl_status, "YOU TURN")
 	else
-		gui.set_text(lbl_status,"WAIT TURN")
+		gui.set_text(lbl_status, "WAIT TURN")
 	end
 end
 function View:init_gui()
 	Base.init_gui(self)
+	self.current_game_idx = nil
 	self.list_current = 1
 	self.lists = {
 		{ id = "active", data = WORLD.games_receiver.games_active_list, root = gui.get_node(self.root_name .. "/game_list_active/bg"),
@@ -107,6 +111,12 @@ function View:init_gui()
 	self.listitem_refresh = function(list)
 		for _, item in ipairs(list.items) do
 			self.listitem_update(list, item)
+			local selection_node = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/selection")])
+			local current_game = item.data == self.current_game_idx
+			gui.set_enabled(selection_node, current_game)
+			gui.set_color(selection_node, vmath.vector4(1))
+
+
 			if (item.data and item.data ~= "") then
 				if (item.__prev_data ~= item.data) then
 					item.__prev_data = item.data
@@ -124,14 +134,17 @@ function View:init_gui()
 		if (WORLD.games_receiver.games_info[data]) then
 			local ctx = COMMON.CONTEXT:set_context_top_game_gui()
 			ctx.data.views.game_view:set_game(WORLD.games_receiver.games_info[data], data)
+			self.listitem_refresh(a)
 			ctx:remove()
 		end
 	end
-	self:list_changed()
+
 	self.lists[1].list = GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, nil, nil, {},
 			self.listitem_clicked, self.listitem_refresh)
 	self.lists[2].list = GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, nil, nil, {},
 			self.listitem_clicked, self.listitem_refresh)
+
+	self:list_changed()
 
 	WORLD.games_receiver:add_cb_game_active_list_changed(function()
 		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
@@ -164,6 +177,14 @@ end
 
 function View:update(dt)
 	Base.update(self, dt)
+	local current_game_idx = COMMON.CONTEXT:get(COMMON.CONTEXT.NAMES.GAME_GUI).data.views.game_view.game_id
+	print("GAME:" .. tostring(current_game_idx))
+	if (self.current_game_idx ~= current_game_idx) then
+		self.current_game_idx = current_game_idx
+		print("REFRESH:" .. tostring(self.current_game_idx))
+		self.listitem_refresh(self.lists[1].list)
+		self.listitem_refresh(self.lists[2].list)
+	end
 end
 
 function View:on_input(action_id, action)
@@ -196,6 +217,8 @@ function View:list_changed()
 
 	gui.play_flipbook(list.tab.root, COMMON.HASHES.hash("tab_selected"))
 	gui.set_color(list.tab.lbl, vmath.vector3(1, 1, 1))
+
+	self.listitem_refresh(list.list)
 end
 
 return View
