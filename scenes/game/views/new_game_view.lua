@@ -42,6 +42,12 @@ function View:init_gui()
 	self.checkbox_selected = 1
 
 	self.views.btn_new_game:set_input_listener(function()
+		local gui_object = GOOEY.input(self.root_name .. "/name_input/text", gui.KEYBOARD_TYPE_DEFAULT, nil, nil, self.name_input_config,
+				self.name_input_refresh)
+		local name = gui_object.text
+		if (name and name ~= "") then
+			roketo.contract_create_game(roketo.get_account_id(), name, self.views.checkboxes[self.checkbox_selected].value)
+		end
 
 	end)
 
