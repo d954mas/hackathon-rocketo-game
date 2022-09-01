@@ -12,10 +12,10 @@ local TEST_GAME = {
 		give_up = 0,
 		board = { --[[0x106c328]]
 			". . . . . . .",
-			" . . . . . . .",
-			"  . . . . . . .",
+			" . R . . . R .",
+			"  . . B . . . .",
 			"   . . . . . . .",
-			"    . . . . . . .",
+			"    . . B . . . .",
 			"     . . . . . . .",
 			"      . . . . . . ."
 		},
@@ -47,6 +47,7 @@ function View:bind_vh()
 		hex_empty = gui.get_node("hex_empty"),
 		hex_fill = gui.get_node("hex_fill"),
 		center = gui.get_node(self.root_name .. "/center"),
+		selection = gui.get_node(self.root_name .. "/hex_selection"),
 		bg = {
 
 		},
@@ -62,6 +63,7 @@ end
 
 function View:init_gui()
 	Base.init_gui(self)
+	gui.set_enabled(self.vh.selection, false)
 end
 
 function View:update(dt)
@@ -70,14 +72,16 @@ end
 
 function View:select_node(node, idx)
 	if (self.selected_node ~= node) then
-		if(self.selected_node) then
-			gui.play_flipbook(self.selected_node, COMMON.HASHES.hash("hex_empty"))
+		if (self.selected_node) then
+			gui.set_enabled(self.vh.selection, false)
+			--gui.play_flipbook(self.selected_node, COMMON.HASHES.hash("hex_empty"))
 		end
 
 		self.selected_node = node
 		self.selected_node_idx = idx
-		if(self.selected_node)then
-			gui.play_flipbook(self.selected_node, COMMON.HASHES.hash("hex_blue"))
+		if (self.selected_node) then
+			gui.set_enabled(self.vh.selection, true)
+			gui.set_position(self.vh.selection, gui.get_position(self.selected_node))
 		end
 	end
 end
@@ -88,14 +92,14 @@ function View:on_input(action_id, action)
 		local selected_node, idx = self:find_over_node(action)
 		self:select_node(selected_node, idx)
 	end
-	if(action_id == COMMON.HASHES.INPUT.TOUCH)then
+	if (action_id == COMMON.HASHES.INPUT.TOUCH) then
 		local selected_node, idx = self:find_over_node(action)
 		self:select_node(selected_node, idx)
-		if(self.selected_node_idx)then
-			local idx_0 = self.selected_node_idx-1
-			local y = math.floor(idx_0/self.board_size)
-			local x = idx_0-y*self.board_size
-			roketo.contract_make_move(self.game_id,"PLACE",x,y)
+		if (self.selected_node_idx) then
+			local idx_0 = self.selected_node_idx - 1
+			local y = math.floor(idx_0 / self.board_size)
+			local x = idx_0 - y * self.board_size
+			roketo.contract_make_move(self.game_id, "PLACE", x, y)
 		end
 	end
 end
@@ -105,7 +109,9 @@ function View:find_over_node(action)
 	local possible_nodes = {}
 	for idx, node in ipairs(self.vh.bg) do
 		if (gui.pick_node(node, action.x, action.y)) then
-			table.insert(possible_nodes, { node = node, idx = idx })
+			if (not self.vh.hexes[idx]) then
+				table.insert(possible_nodes, { node = node, idx = idx })
+			end
 		end
 	end
 	local result_node = nil
@@ -125,31 +131,47 @@ function View:find_over_node(action)
 	end
 end
 
-function View:set_game(game,game_id)
+function View:set_game(game, game_id)
 	if (self.game) then
 		self:clear()
 	end
 	self.game = assert(game)
 	self.game_id = assert(game_id)
 	self.board_size = #self.game.board
+	self.board_nodes = {}
 
 	local full_dx = (self.board_size - 1) + (self.board_size - 1) * 2
 	self.view_size = vmath.vector3(full_dx * View.HEX_SIZE.w / 2,
 			self.board_size * View.HEX_SIZE.h / 2 + View.HEX_SIZE.h / 2, 0)
 	gui.set_position(self.vh.center, vmath.vector3(-self.view_size.x / 2, self.view_size.y / 2, 0))
 	local position = vmath.vector3()
+	local idx = 0
 	for y = 1, self.board_size do
 		position.y = -(y - 1) * View.HEX_SIZE.h / 2 - View.HEX_SIZE.h / 2
 		for x = 1, self.board_size do
+			idx = idx + 1
 			local dx = (y - 1) + (x - 1) * 2
 			position.x = dx * View.HEX_SIZE.w / 2
 			local node = self.game.board[y]:sub(1 + dx, 1 + dx)
+			table.insert(self.board_nodes, { idx = idx, node = node, x = x, y = y })
 			--	print("x:" .. x .. " y:" .. y .. "node:" .. tostring(node))
 			local bg_node = gui.clone(self.vh.hex_empty)
 			gui.set_parent(bg_node, self.vh.center)
 			gui.set_enabled(bg_node, true)
 			gui.set_position(bg_node, position)
 			table.insert(self.vh.bg, bg_node)
+
+			local is_first = roketo.get_account_id() == game.first_player
+			gui.play_flipbook(self.vh.selection, COMMON.HASHES.hash(is_first and "hex_red" or "hex_blue"))
+
+			if (node == "R" or node == "B") then
+				local hex_node = gui.clone(self.vh.hex_fill)
+				gui.play_flipbook(hex_node, COMMON.HASHES.hash(node == "R" and "hex_red" or "hex_blue"))
+				gui.set_parent(hex_node, self.vh.center)
+				gui.set_enabled(hex_node, true)
+				gui.set_position(hex_node, position)
+				self.vh.hexes[idx] = hex_node
+			end
 
 			--local hex_node = gui.clone(self.vh.hex_node)
 			--gui.set_parent(hex_node, self.root_node)
@@ -166,10 +188,14 @@ function View:clear()
 	end
 	self.vh.bg = {}
 
-	for _, node in ipairs(self.vh.hexes) do
+	for _, node in pairs(self.vh.hexes) do
 		gui.delete_node(node)
 	end
 	self.vh.hexes = {}
+
+	gui.set_enabled(self.vh.selection, false)
+	self.selected_node_idx = nil
+	self.selected_node = nil
 end
 
 return View
