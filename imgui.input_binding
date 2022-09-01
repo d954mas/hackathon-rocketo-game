@@ -204,11 +204,11 @@ key_trigger {
 }
 mouse_trigger {
   input: MOUSE_WHEEL_UP
-  action: "mouse_wheel_up"
+  action: "scroll_up"
 }
 mouse_trigger {
   input: MOUSE_WHEEL_DOWN
-  action: "mouse_wheel_down"
+  action: "scroll_down"
 }
 mouse_trigger {
   input: MOUSE_BUTTON_MIDDLE

@@ -47,17 +47,17 @@ function View:init_gui()
 	local scale_pressed = vmath.vector3(0.9)
 	self.listitem_update = function(list, item)
 		gui.set_scale(item.root, scale_start)
-		if item.index == list.selected_item then
+		if item == list.selected_item then
 
 		end
 
-		if item.index == list.pressed_item then
+		if item == list.pressed_item then
 			gui.set_scale(item.root, scale_pressed)
-		elseif item.index == list.over_item_now then
+		elseif item == list.over_item_now then
 			--gui.set_scale(item.root, scale_start)
-		elseif item.index == list.out_item_now then
+		elseif item == list.out_item_now then
 			--gui.set_scale(item.root, scale_start)
-		elseif item.index ~= list.over_item then
+		elseif item ~= list.over_item then
 			--gui.set_scale(item.root, scale_start)
 		else
 			gui.set_scale(item.root, scale_start)
@@ -79,7 +79,8 @@ function View:init_gui()
 		end
 	end
 	self.listitem_clicked = function(a)
-		local data = a.data[a.selected_item]
+		local data = a.data[a.selected_item.index]
+		print("CLICKED:" .. tostring(data))
 	end
 	self:list_changed()
 	self.views.btn_change_list:set_input_listener(function()
@@ -131,8 +132,8 @@ function View:on_input(action_id, action)
 	if (self.ignore_input) then return false end
 	GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, action_id, action, {},
 			self.listitem_clicked, self.listitem_refresh)
-	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {},
-			self.listitem_clicked, self.listitem_refresh)
+--	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {},
+	--		self.listitem_clicked, self.listitem_refresh)
 	if (self.views.btn_change_list:on_input(action_id, action)) then return true end
 end
 
