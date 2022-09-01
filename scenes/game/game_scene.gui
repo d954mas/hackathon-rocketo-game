@@ -4314,7 +4314,7 @@ nodes {
 nodes {
   position {
     x: 480.0
-    y: 270.0
+    y: 220.0
     z: 0.0
     w: 1.0
   }
