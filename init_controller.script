@@ -25,6 +25,8 @@ local CRYPTO = require "libs.crypto"
 
 local SITELOCK = require "libs.yagames.sitelock"
 
+local CLIPBOARD = require "libs.clipboard"
+
 local RoketoMock = require "libs_project.roketo_mock"
 
 local TAG = "INIT_CONTROLLER"
@@ -201,6 +203,8 @@ function Script:init()
 		end
 
 	end)
+
+	CLIPBOARD.init()
 
 end
 
