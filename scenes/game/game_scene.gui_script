@@ -6,6 +6,7 @@ local InitializingView = require "scenes.game.views.initializing_view"
 local DebugView = require "scenes.game.views.debug_view"
 local GameListView = require "scenes.game.views.game_list_view"
 local NewGameView = require "scenes.game.views.new_game_view"
+local GameView = require "scenes.game.views.game_view"
 
 ---@class GameSceneGuiScript:GuiScriptBase
 local Script = COMMON.class("GameSceneGuiScript", BaseGuiScript)
@@ -38,13 +39,16 @@ function Script:bind_vh()
 		initializing_view = InitializingView("init_near_view"),
 		debug_view = DebugView("debug_view"),
 		game_list_view = GameListView("game_list_view"),
-		new_game_view = NewGameView("new_game_view")
+		new_game_view = NewGameView("new_game_view"),
+		game_view = GameView("game_view")
 	}
 end
 
 function Script:init_gui()
 	BaseGuiScript.init_gui(self)
 	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.GAME)
+	gui.set_enabled(gui.get_node("hex_empty"), false)
+	gui.set_enabled(gui.get_node("hex_fill"), false)
 end
 
 function Script:on_resize()
@@ -90,6 +94,8 @@ function Script:show_start_ui()
 	self.views.debug_view:set_enabled(true)
 	self.views.game_list_view:set_enabled(true)
 	self.views.new_game_view:set_enabled(true)
+	self.views.game_view:set_enabled(true)
+	self.views.game_view:set_game(self.views.game_view.TEST_GAME.game)
 end
 
 function Script:update(dt)

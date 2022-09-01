@@ -17,10 +17,10 @@ function Roketo.init_near()
 		if (Roketo.inited) then
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitLoginError", message = { error = "NearAlreadyInited" } })
 		else
-			COMMON.coroutine_wait(2)
+			COMMON.coroutine_wait(0)
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitSuccess" })
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitWalletSuccess" })
-			COMMON.coroutine_wait(1)
+			COMMON.coroutine_wait(0)
 			COMMON.EVENT_BUS:event(COMMON.EVENTS.NEAR, { message_id = "NearInitRoketoApiControlSuccess" })
 		end
 	end)
