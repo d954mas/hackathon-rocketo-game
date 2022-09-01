@@ -22,12 +22,12 @@ function View:bind_vh()
 	}
 end
 
-function View:update_game_cell(list,item,info)
+function View:update_game_cell(list, item, info)
 	local lbl_oponnent = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/oponnent")])
-	if(info.first_player == roketo.get_account_id())then
-		gui.set_text(lbl_oponnent,info.second_player)
+	if (info.first_player == roketo.get_account_id()) then
+		gui.set_text(lbl_oponnent, info.second_player)
 	else
-		gui.set_text(lbl_oponnent,info.first_player)
+		gui.set_text(lbl_oponnent, info.first_player)
 	end
 end
 function View:init_gui()
@@ -72,7 +72,7 @@ function View:init_gui()
 					gui.set_text(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/id")], tostring(item.data or "-"))
 					local info = WORLD.games_receiver:get_game_info(item.data)
 					if (info) then
-						self:update_game_cell(list,item,info)
+						self:update_game_cell(list, item, info)
 					end
 				end
 			end
@@ -80,6 +80,11 @@ function View:init_gui()
 	end
 	self.listitem_clicked = function(a)
 		local data = a.data[a.selected_item.index]
+		if (WORLD.games_receiver.games_info[data]) then
+			local ctx = COMMON.CONTEXT:set_context_top_game_gui()
+			ctx.data.views.game_view:set_game(WORLD.games_receiver.games_info[data], data)
+			ctx:remove()
+		end
 	end
 	self:list_changed()
 	self.views.btn_change_list:set_input_listener(function()
@@ -112,10 +117,10 @@ function View:init_gui()
 
 	WORLD.games_receiver:add_cb_game_info_changed(function(info)
 		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
-		for _,list in ipairs(self.lists)do
-			for _,item in ipairs(list.list.items)do
-				if(item.data==info.idx)then
-					self:update_game_cell(list.list,item,info.game)
+		for _, list in ipairs(self.lists) do
+			for _, item in ipairs(list.list.items) do
+				if (item.data == info.idx) then
+					self:update_game_cell(list.list, item, info.game)
 				end
 			end
 		end

@@ -2,6 +2,7 @@ local COMMON = require "libs.common"
 local GUI = require "libs_project.gui.gui"
 local GOOEY = require "gooey.gooey"
 local WORLD = require "world.world"
+local ACTIONS = require "libs.actions.actions"
 
 local TEST_GAME = {
 	idx = 2,
@@ -64,10 +65,34 @@ end
 function View:init_gui()
 	Base.init_gui(self)
 	gui.set_enabled(self.vh.selection, false)
+	self.action_refresh = ACTIONS.Function { fun = function()
+		while (true) do
+			if (self.game_id) then
+				WORLD.games_receiver:get_game_info(self.game_id)
+				COMMON.coroutine_wait(5)
+			end
+			COMMON.coroutine_wait(0.5)
+		end
+	end }
+
+	WORLD.games_receiver:add_cb_game_info_changed(function(info)
+		if (not self.game) then
+			if (info.idx == WORLD.games_receiver.games_active_list[1]) then
+				local ctx = COMMON.CONTEXT:set_context_top_game_gui()
+				self:set_game(info.game, info.idx)
+				ctx:remove()
+			end
+		elseif (self.game_id == info.idx) then
+			local ctx = COMMON.CONTEXT:set_context_top_game_gui()
+			self:set_game(info.game, info.idx)
+			ctx:remove()
+		end
+	end)
 end
 
 function View:update(dt)
 	Base.update(self, dt)
+	self.action_refresh:update(dt)
 end
 
 function View:select_node(node, idx)
@@ -87,7 +112,7 @@ function View:select_node(node, idx)
 end
 
 function View:on_input(action_id, action)
-	if (self.ignore_input) then return false end
+	if (self.ignore_input or not self.game) then return false end
 	if (not action_id) then
 		local selected_node, idx = self:find_over_node(action)
 		self:select_node(selected_node, idx)
@@ -135,6 +160,7 @@ function View:set_game(game, game_id)
 	if (self.game) then
 		self:clear()
 	end
+	WORLD.games_receiver:get_game_info(game_id) --ask to refresh
 	self.game = assert(game)
 	self.game_id = assert(game_id)
 	self.board_size = #self.game.board
@@ -196,6 +222,8 @@ function View:clear()
 	gui.set_enabled(self.vh.selection, false)
 	self.selected_node_idx = nil
 	self.selected_node = nil
+	self.game = nil
+	self.game_id = nil
 end
 
 return View
