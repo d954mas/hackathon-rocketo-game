@@ -54,7 +54,7 @@ function Receiver:add_cb_game_info_changed(cb)
 end
 
 function Receiver:get_game_info(id)
-	if (roketo.is_logged_in() and roketo.is_ready) then
+	if (roketo.is_logged_in() and roketo.is_ready()) then
 		local data = self.games_info[id]
 		if (not data) then
 			--ask for new info

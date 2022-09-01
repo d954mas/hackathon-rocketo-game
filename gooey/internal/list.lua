@@ -22,7 +22,9 @@ local function update_dynamic_listitem_positions(list)
 		local item = list.items[i]
 		local item_pos = gui.get_position(item.root)
 		local index = first_index + i - 1
-		item.index = ((index - 1) % #list.data) + 1
+		if(#list.data ~= 0)then
+			item.index = ((index - 1) % #list.data) + 1
+		end
 		if list.horizontal then
 			item_pos.x = list.first_item_pos.x - (list.item_size.x * (i - 1)) + top_x
 		else
@@ -36,7 +38,11 @@ end
 local function update_dynamic_listitem_data(list)
 	for i=1,#list.items do
 		local item = list.items[i]
-		item.data = list.data[item.index] or nil
+		if i <= #list.data then
+			item.data = list.data[item.index] or nil
+		else
+			item.data = nil
+		end
 	end
 end
 
@@ -70,11 +76,23 @@ function LIST.scroll_to(list, x, y)
 	list.scrolling = true
 
 	if list.horizontal then
-		list.scroll_pos.x = list.min_x + (list.max_x - list.min_x) * x
-		list.scroll.x = x
+		-- don't scroll if all items are visible
+		if list.max_x <= 0 then
+			list.scroll_pos.x = 0
+			list.scroll.x = 0
+		else
+			list.scroll_pos.x = list.min_x + (list.max_x - list.min_x) * x
+			list.scroll.x = x
+		end
 	else
-		list.scroll_pos.y = list.min_y + (list.max_y - list.min_y) * y
-		list.scroll.y = y
+		-- don't scroll if all items are visible
+		if list.max_y <= 0 then
+			list.scroll_pos.y = 0
+			list.scroll.y = 0
+		else
+			list.scroll_pos.y = list.min_y + (list.max_y - list.min_y) * y
+			list.scroll.y = y
+		end
 	end
 	if list.static then
 		update_static_listitems(list.items, vmath.vector3(list.scroll_pos), list.horizontal)
@@ -106,6 +124,7 @@ end
 
 local function handle_input(list, action_id, action, click_fn)
 	local over_stencil = gui.pick_node(list.stencil, action.x, action.y)
+	list.over = over_stencil
 
 	local touch = action_id == actions.TOUCH
 	local scroll_up = action_id == actions.SCROLL_UP
@@ -145,7 +164,7 @@ local function handle_input(list, action_id, action, click_fn)
 		if action.released then
 			list.scrolling = false
 		end
-	-- handle touch and drag scrolling
+		-- handle touch and drag scrolling
 	elseif list.pressed and vmath.length(list.pressed_pos - action_pos) > 10 then
 		list.have_scrolled = true
 		list.consumed = true
@@ -178,7 +197,7 @@ local function handle_input(list, action_id, action, click_fn)
 		local item = list.items[i]
 		if gui.pick_node(item.root, action.x, action.y) then
 			list.consumed = true
-			over_item = item.index
+			over_item = item
 			break
 		end
 	end
@@ -282,7 +301,22 @@ function M.dynamic(list_id, stencil_id, item_id, data, action_id, action, config
 	list.carousel = config and config.carousel
 	list.data = data
 
-	-- create list items (once!)
+	-- detect a change in size of the stencil
+	-- if it has changed we delete the nodes and then recreate
+	local stencil_size = gui.get_size(list.stencil)
+	if stencil_size.x ~= list.stencil_size.x
+			or stencil_size.y ~= list.stencil_size.y then
+		list.stencil_size = stencil_size
+		if list.items then
+			for i=1,#list.items do
+				local item = list.items[i]
+				gui.delete_node(item.root)
+			end
+			list.items = nil
+		end
+	end
+
+	-- create list items
 	if not list.items then
 		item_id = core.to_hash(item_id)
 		local item_node = gui.get_node(item_id)
@@ -300,6 +334,7 @@ function M.dynamic(list_id, stencil_id, item_id, data, action_id, action, config
 		else
 			item_count = (math.ceil(list.stencil_size.y / item_size.y) + 1)
 		end
+		gui.set_enabled(item_node, true)
 		for i=1,item_count do
 			local nodes = gui.clone_tree(item_node)
 			list.items[i] = {
@@ -317,7 +352,7 @@ function M.dynamic(list_id, stencil_id, item_id, data, action_id, action, config
 			end
 			gui.set_position(list.items[i].root, pos)
 		end
-		gui.delete_node(item_node)
+		gui.set_enabled(item_node, false)
 	end
 
 	-- recalculate size of list if the amount of data has changed
@@ -341,8 +376,8 @@ function M.dynamic(list_id, stencil_id, item_id, data, action_id, action, config
 			list.scroll_pos.y = 0
 			list.scroll_pos.x = 0
 			update_dynamic_listitem_positions(list)
-		-- more items in list than visible
-		-- assign indices and enable list items
+			-- more items in list than visible
+			-- assign indices and enable list items
 		else
 			local first_index = list.items[1].index
 			if (first_index + #list.items) > #data then
