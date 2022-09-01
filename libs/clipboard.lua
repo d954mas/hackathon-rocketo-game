@@ -6,10 +6,10 @@ M.CLIPBOARD_PASTE = "ClipboardPaste"
 function M.init()
 	if (html5) then
 		clipboard.init()
-		COMMON.EVENT_BUS:subscribe(COMMON.EVENTS.JSTODEF):subscribe(function(message_id, message)
-			if (message_id == M.CLIPBOARD_PASTE) then
+		COMMON.EVENT_BUS:subscribe(COMMON.EVENTS.JSTODEF):subscribe(function(data)
+			if (data.message_id == M.CLIPBOARD_PASTE) then
 				for _, listener in pairs(M.listeners) do
-					listener(message_id, message)
+					listener(data.message_id, data.message)
 				end
 			end
 		end)
@@ -22,7 +22,7 @@ function M.add_listener(listener)
 end
 
 function M.remove_listener(listener)
-	self.listeners[listener] = nil
+	M.listeners[listener] = nil
 end
 
 return M
