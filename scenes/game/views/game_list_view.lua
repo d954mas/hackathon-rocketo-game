@@ -80,7 +80,6 @@ function View:init_gui()
 	end
 	self.listitem_clicked = function(a)
 		local data = a.data[a.selected_item.index]
-		print("CLICKED:" .. tostring(data))
 	end
 	self:list_changed()
 	self.views.btn_change_list:set_input_listener(function()
@@ -132,8 +131,8 @@ function View:on_input(action_id, action)
 	if (self.ignore_input) then return false end
 	GOOEY.dynamic_list(self.lists[1].list_id, self.lists[1].stencil_id, self.lists[1].item_id, self.lists[1].data, action_id, action, {},
 			self.listitem_clicked, self.listitem_refresh)
---	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {},
-	--		self.listitem_clicked, self.listitem_refresh)
+	GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, action_id, action, {},
+			self.listitem_clicked, self.listitem_refresh)
 	if (self.views.btn_change_list:on_input(action_id, action)) then return true end
 end
 
