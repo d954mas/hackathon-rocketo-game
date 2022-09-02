@@ -54,6 +54,9 @@ function View:bind_vh()
 		},
 		hexes = {
 
+		},
+		border = {
+
 		}
 	}
 
@@ -88,6 +91,8 @@ function View:init_gui()
 			ctx:remove()
 		end
 	end)
+
+	self:set_game(TEST_GAME.game,TEST_GAME.idx)
 end
 
 function View:update(dt)
@@ -206,6 +211,52 @@ function View:set_game(game, game_id)
 		end
 	end
 
+
+	for x=1,self.board_size do
+		position.y =  1 * View.HEX_SIZE.h / 2 - View.HEX_SIZE.h / 2
+		position.x = (x-1.5) * View.HEX_SIZE.w
+
+		local border_node = gui.clone(self.vh.hex_empty)
+		gui.set_parent(border_node, self.vh.center)
+		gui.set_enabled(border_node, true)
+		gui.set_position(border_node, position)
+		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_red_top"))
+		table.insert(self.vh.border, border_node)
+
+		position.x = (x-1) * View.HEX_SIZE.w + self.board_size * View.HEX_SIZE.w/2
+		position.y = -(self.board_size+1) * View.HEX_SIZE.h/2
+
+		border_node = gui.clone(self.vh.hex_empty)
+		gui.set_parent(border_node, self.vh.center)
+		gui.set_enabled(border_node, true)
+		gui.set_position(border_node, position)
+		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_red_bottom"))
+		table.insert(self.vh.border, border_node)
+	end
+
+	for y=1,self.board_size do
+		position.y = -1 * View.HEX_SIZE.h/2 - (y-1)*View.HEX_SIZE.h/2
+		position.x = -2 * View.HEX_SIZE.w/2+ (y-1)*View.HEX_SIZE.w/2
+
+		local border_node = gui.clone(self.vh.hex_empty)
+		gui.set_parent(border_node, self.vh.center)
+		gui.set_enabled(border_node, true)
+		gui.set_position(border_node, position)
+		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_blue_left"))
+		table.insert(self.vh.border, border_node)
+
+		position.y = -1 * View.HEX_SIZE.h/2 - (y-1)*View.HEX_SIZE.h/2
+		position.x = self.board_size * View.HEX_SIZE.w + (y-1)*View.HEX_SIZE.w/2
+
+		border_node = gui.clone(self.vh.hex_empty)
+		gui.set_parent(border_node, self.vh.center)
+		gui.set_enabled(border_node, true)
+		gui.set_position(border_node, position)
+		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_blue_right"))
+		table.insert(self.vh.border, border_node)
+
+	end
+
 end
 
 function View:clear()
@@ -213,6 +264,11 @@ function View:clear()
 		gui.delete_node(node)
 	end
 	self.vh.bg = {}
+
+	for _, node in ipairs(self.vh.border) do
+		gui.delete_node(node)
+	end
+	self.vh.border = {}
 
 	for _, node in pairs(self.vh.hexes) do
 		gui.delete_node(node)
