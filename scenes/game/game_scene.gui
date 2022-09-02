@@ -807,7 +807,7 @@ nodes {
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
   parent: "game_view/center"
-  layer: ""
+  layer: "above"
   inherit_alpha: true
   slice9 {
     x: 0.0
@@ -818,7 +818,7 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 1.0
+  alpha: 0.9
   template_node_child: false
   size_mode: SIZE_MODE_MANUAL
   custom_type: 0
