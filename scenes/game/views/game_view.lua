@@ -257,6 +257,26 @@ function View:set_game(game, game_id)
 
 	end
 
+	position.y = -1 * View.HEX_SIZE.h/2 - (self.board_size+1-1)*View.HEX_SIZE.h/2
+	position.x = -2 * View.HEX_SIZE.w/2+ (self.board_size+1-1)*View.HEX_SIZE.w/2
+
+	local border_node = gui.clone(self.vh.hex_empty)
+	gui.set_parent(border_node, self.vh.center)
+	gui.set_enabled(border_node, true)
+	gui.set_position(border_node, position)
+	gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_corner_left_bottom"))
+	table.insert(self.vh.border, border_node)
+
+	position.y = -1 * View.HEX_SIZE.h/2 - (0-1)*View.HEX_SIZE.h/2
+	position.x = self.board_size * View.HEX_SIZE.w + (0-1)*View.HEX_SIZE.w/2
+
+	border_node = gui.clone(self.vh.hex_empty)
+	gui.set_parent(border_node, self.vh.center)
+	gui.set_enabled(border_node, true)
+	gui.set_position(border_node, position)
+	gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_corner_right_top"))
+	table.insert(self.vh.border, border_node)
+
 end
 
 function View:clear()
