@@ -2976,7 +2976,7 @@ nodes {
 }
 nodes {
   position {
-    x: 480.0
+    x: 550.0
     y: 540.0
     z: 0.0
     w: 1.0
@@ -2988,8 +2988,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 1.25
+    y: 1.25
     z: 1.0
     w: 1.0
   }
@@ -3032,7 +3032,7 @@ nodes {
 nodes {
   position {
     x: 0.0
-    y: -75.0
+    y: -45.0
     z: 0.0
     w: 1.0
   }
@@ -3049,20 +3049,20 @@ nodes {
     w: 1.0
   }
   size {
-    x: 430.0
-    y: 150.0
+    x: 280.0
+    y: 90.0
     z: 0.0
     w: 1.0
   }
   color {
-    x: 0.4
-    y: 0.4
-    z: 0.4
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/white"
+  texture: "gui/bg_new_game 1"
   id: "new_game_view/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3082,13 +3082,13 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: false
-  size_mode: SIZE_MODE_MANUAL
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {
   position {
-    x: 40.0
-    y: -120.0
+    x: -118.0
+    y: -63.0
     z: 0.0
     w: 1.0
   }
@@ -3101,224 +3101,6 @@ nodes {
   scale {
     x: 1.0
     y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  type: TYPE_TEMPLATE
-  id: "new_game_view/btn_new_game"
-  parent: "new_game_view/root"
-  layer: ""
-  inherit_alpha: true
-  alpha: 1.0
-  template: "/assets/templates/base/button_base_1.gui"
-  template_node_child: false
-  custom_type: 0
-}
-nodes {
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 200.0
-    y: 60.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  type: TYPE_BOX
-  blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/empty"
-  id: "new_game_view/btn_new_game/root"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
-  adjust_mode: ADJUST_MODE_FIT
-  parent: "new_game_view/btn_new_game"
-  layer: "below"
-  inherit_alpha: true
-  slice9 {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 0.0
-  }
-  clipping_mode: CLIPPING_MODE_NONE
-  clipping_visible: true
-  clipping_inverted: false
-  alpha: 1.0
-  template_node_child: true
-  size_mode: SIZE_MODE_MANUAL
-  custom_type: 0
-}
-nodes {
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 200.0
-    y: 60.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  type: TYPE_BOX
-  blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/button_normal"
-  id: "new_game_view/btn_new_game/bg"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
-  adjust_mode: ADJUST_MODE_FIT
-  parent: "new_game_view/btn_new_game/root"
-  layer: "below"
-  inherit_alpha: true
-  slice9 {
-    x: 12.0
-    y: 12.0
-    z: 12.0
-    w: 12.0
-  }
-  clipping_mode: CLIPPING_MODE_NONE
-  clipping_visible: true
-  clipping_inverted: false
-  alpha: 1.0
-  template_node_child: true
-  size_mode: SIZE_MODE_MANUAL
-  custom_type: 0
-}
-nodes {
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  type: TYPE_TEXT
-  blend_mode: BLEND_MODE_ALPHA
-  text: "NEW GAME"
-  font: "roboto_mono_bold"
-  id: "new_game_view/btn_new_game/label"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
-  outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  shadow {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  adjust_mode: ADJUST_MODE_FIT
-  line_break: false
-  parent: "new_game_view/btn_new_game/bg"
-  layer: "text"
-  inherit_alpha: true
-  alpha: 1.0
-  outline_alpha: 0.0
-  shadow_alpha: 1.0
-  overridden_fields: 8
-  template_node_child: true
-  text_leading: 1.0
-  text_tracking: 0.0
-  custom_type: 0
-}
-nodes {
-  position {
-    x: -187.0
-    y: -25.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 0.66
-    y: 0.66
     z: 1.0
     w: 1.0
   }
@@ -3340,13 +3122,13 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/assets/templates/base/checkbox_with_lbl_base.gui"
+  template: "/assets/templates/project/checkbox_with_lbl_base.gui"
   template_node_child: false
   custom_type: 0
 }
 nodes {
   position {
-    x: 0.0
+    x: 10.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -3364,8 +3146,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 1.0
-    y: 1.0
+    x: 45.0
+    y: 30.0
     z: 0.0
     w: 1.0
   }
@@ -3377,7 +3159,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/empty"
+  texture: "gui/empty"
   id: "new_game_view/chb_7/root"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3397,12 +3179,12 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 0.0
+    x: -10.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -3420,8 +3202,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 64.0
-    y: 68.0
+    x: 20.0
+    y: 20.0
     z: 0.0
     w: 1.0
   }
@@ -3433,7 +3215,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/checkbox_normal"
+  texture: "gui/checkbox_normal"
   id: "new_game_view/chb_7/root/box"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3453,13 +3235,13 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 50.0
-    y: 0.0
+    x: 2.0
+    y: 1.0
     z: 0.0
     w: 1.0
   }
@@ -3470,8 +3252,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 2.0
-    y: 2.0
+    x: 0.5
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -3482,16 +3264,15 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.9019608
-    y: 0.9019608
-    z: 0.9019608
+    x: 0.5058824
+    y: 0.5686275
+    z: 0.5921569
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "7\n"
-  ""
-  font: "game_font"
+  text: "7"
+  font: "game_font_numbers"
   id: "new_game_view/chb_7/root/label"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3514,12 +3295,9 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 1.0
+  outline_alpha: 0.0
   shadow_alpha: 1.0
-  overridden_fields: 3
   overridden_fields: 5
-  overridden_fields: 8
-  overridden_fields: 10
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
@@ -3527,8 +3305,8 @@ nodes {
 }
 nodes {
   position {
-    x: -187.0
-    y: -75.0
+    x: -69.0
+    y: -63.0
     z: 0.0
     w: 1.0
   }
@@ -3539,8 +3317,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.66
-    y: 0.66
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
@@ -3562,13 +3340,13 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/assets/templates/base/checkbox_with_lbl_base.gui"
+  template: "/assets/templates/project/checkbox_with_lbl_base.gui"
   template_node_child: false
   custom_type: 0
 }
 nodes {
   position {
-    x: 0.0
+    x: 10.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -3586,8 +3364,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 1.0
-    y: 1.0
+    x: 45.0
+    y: 30.0
     z: 0.0
     w: 1.0
   }
@@ -3599,7 +3377,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/empty"
+  texture: "gui/empty"
   id: "new_game_view/chb_11/root"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3619,12 +3397,12 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 0.0
+    x: -10.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -3642,8 +3420,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 64.0
-    y: 68.0
+    x: 20.0
+    y: 20.0
     z: 0.0
     w: 1.0
   }
@@ -3655,7 +3433,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/checkbox_normal"
+  texture: "gui/checkbox_normal"
   id: "new_game_view/chb_11/root/box"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3675,13 +3453,13 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 50.0
-    y: 0.0
+    x: 2.0
+    y: 1.0
     z: 0.0
     w: 1.0
   }
@@ -3692,8 +3470,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 2.0
-    y: 2.0
+    x: 0.5
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -3704,15 +3482,15 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.9019608
-    y: 0.9019608
-    z: 0.9019608
+    x: 0.5058824
+    y: 0.5686275
+    z: 0.5921569
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "11"
-  font: "game_font"
+  font: "game_font_numbers"
   id: "new_game_view/chb_11/root/label"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3735,12 +3513,9 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 1.0
+  outline_alpha: 0.0
   shadow_alpha: 1.0
-  overridden_fields: 3
-  overridden_fields: 5
   overridden_fields: 8
-  overridden_fields: 10
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
@@ -3748,8 +3523,8 @@ nodes {
 }
 nodes {
   position {
-    x: -187.0
-    y: -125.0
+    x: -19.0
+    y: -63.0
     z: 0.0
     w: 1.0
   }
@@ -3760,8 +3535,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.66
-    y: 0.66
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
@@ -3783,13 +3558,13 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/assets/templates/base/checkbox_with_lbl_base.gui"
+  template: "/assets/templates/project/checkbox_with_lbl_base.gui"
   template_node_child: false
   custom_type: 0
 }
 nodes {
   position {
-    x: 0.0
+    x: 10.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -3807,8 +3582,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 1.0
-    y: 1.0
+    x: 45.0
+    y: 30.0
     z: 0.0
     w: 1.0
   }
@@ -3820,7 +3595,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/empty"
+  texture: "gui/empty"
   id: "new_game_view/chb_13/root"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3840,12 +3615,12 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 0.0
+    x: -10.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -3863,8 +3638,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 64.0
-    y: 68.0
+    x: 20.0
+    y: 20.0
     z: 0.0
     w: 1.0
   }
@@ -3876,7 +3651,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/checkbox_normal"
+  texture: "gui/checkbox_normal"
   id: "new_game_view/chb_13/root/box"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3896,13 +3671,13 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 50.0
-    y: 0.0
+    x: 2.0
+    y: 1.0
     z: 0.0
     w: 1.0
   }
@@ -3913,8 +3688,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 2.0
-    y: 2.0
+    x: 0.5
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -3925,15 +3700,16 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.9019608
-    y: 0.9019608
-    z: 0.9019608
+    x: 0.5058824
+    y: 0.5686275
+    z: 0.5921569
     w: 1.0
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "13"
-  font: "game_font"
+  text: "13\n"
+  ""
+  font: "game_font_numbers"
   id: "new_game_view/chb_13/root/label"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3956,12 +3732,9 @@ nodes {
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
-  outline_alpha: 1.0
+  outline_alpha: 0.0
   shadow_alpha: 1.0
-  overridden_fields: 3
-  overridden_fields: 5
   overridden_fields: 8
-  overridden_fields: 10
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
@@ -3969,8 +3742,8 @@ nodes {
 }
 nodes {
   position {
-    x: -130.0
-    y: -35.0
+    x: -132.0
+    y: -21.0
     z: 0.0
     w: 1.0
   }
@@ -3987,49 +3760,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  type: TYPE_TEMPLATE
-  id: "new_game_view/name_input"
-  parent: "new_game_view/root"
-  layer: ""
-  inherit_alpha: true
-  alpha: 1.0
-  template: "/gooey/themes/dirtylarry/components/input.gui"
-  template_node_child: false
-  custom_type: 0
-}
-nodes {
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 300.0
-    y: 64.0
+    x: 231.0
+    y: 31.0
     z: 0.0
     w: 1.0
   }
@@ -4041,13 +3773,13 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "dirtylarry/input"
+  texture: "gui/input_field"
   id: "new_game_view/name_input/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_W
   adjust_mode: ADJUST_MODE_FIT
-  parent: "new_game_view/name_input"
+  parent: "new_game_view/root"
   layer: "below"
   inherit_alpha: true
   slice9 {
@@ -4060,14 +3792,13 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
-  overridden_fields: 4
-  template_node_child: true
-  size_mode: SIZE_MODE_MANUAL
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {
   position {
-    x: 12.0
+    x: 5.0
     y: 0.0
     z: 0.0
     w: 1.0
@@ -4079,13 +3810,13 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.6
+    y: 0.6
     z: 1.0
     w: 1.0
   }
   size {
-    x: 280.0
+    x: 364.0
     y: 100.0
     z: 0.0
     w: 1.0
@@ -4098,8 +3829,8 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "<text>"
-  font: "roboto_mono_bold"
+  text: "wwww"
+  font: "game_font"
   id: "new_game_view/name_input/text"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -4124,7 +3855,7 @@ nodes {
   alpha: 1.0
   outline_alpha: 0.0
   shadow_alpha: 1.0
-  template_node_child: true
+  template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
   custom_type: 0
@@ -4132,7 +3863,7 @@ nodes {
 nodes {
   position {
     x: 12.0
-    y: 2.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -4149,20 +3880,20 @@ nodes {
     w: 1.0
   }
   size {
-    x: 4.0
-    y: 40.0
+    x: 2.0
+    y: 22.0
     z: 0.0
     w: 1.0
   }
   color {
-    x: 0.5019608
-    y: 0.5019608
-    z: 0.5019608
+    x: 1.0
+    y: 1.0
+    z: 1.0
     w: 1.0
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: ""
+  texture: "gui/white"
   id: "new_game_view/name_input/cursor"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -4181,14 +3912,14 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
-  template_node_child: true
+  template_node_child: false
   size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
 nodes {
   position {
-    x: 195.0
-    y: -35.0
+    x: 78.0
+    y: -63.0
     z: 0.0
     w: 1.0
   }
@@ -4205,49 +3936,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  type: TYPE_TEMPLATE
-  id: "new_game_view/name_input/clear"
-  parent: "new_game_view/root"
-  layer: ""
-  inherit_alpha: true
-  alpha: 1.0
-  template: "/assets/templates/base/button_base_1.gui"
-  template_node_child: false
-  custom_type: 0
-}
-nodes {
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 40.0
-    y: 40.0
+    x: 115.0
+    y: 50.0
     z: 0.0
     w: 1.0
   }
@@ -4259,13 +3949,13 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/empty"
-  id: "new_game_view/name_input/clear/root"
+  texture: "gui/empty"
+  id: "new_game_view/btn_new_game/root"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
-  parent: "new_game_view/name_input/clear"
+  parent: "new_game_view/root"
   layer: "below"
   inherit_alpha: true
   slice9 {
@@ -4278,8 +3968,7 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
-  overridden_fields: 4
-  template_node_child: true
+  template_node_child: false
   size_mode: SIZE_MODE_MANUAL
   custom_type: 0
 }
@@ -4303,8 +3992,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 40.0
-    y: 40.0
+    x: 113.0
+    y: 48.0
     z: 0.0
     w: 1.0
   }
@@ -4316,13 +4005,13 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "debug/button_normal"
-  id: "new_game_view/name_input/clear/bg"
+  texture: "gui/btn_play"
+  id: "new_game_view/btn_new_game/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
-  parent: "new_game_view/name_input/clear/root"
+  parent: "new_game_view/btn_new_game/root"
   layer: "below"
   inherit_alpha: true
   slice9 {
@@ -4335,9 +4024,8 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
-  overridden_fields: 4
-  template_node_child: true
-  size_mode: SIZE_MODE_MANUAL
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {
@@ -4354,8 +4042,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.66
+    y: 0.66
     z: 1.0
     w: 1.0
   }
@@ -4373,9 +4061,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "C"
-  font: "roboto_mono_bold"
-  id: "new_game_view/name_input/clear/label"
+  text: "NEW GAME"
+  font: "game_font"
+  id: "new_game_view/btn_new_game/label"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -4393,16 +4081,127 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
-  parent: "new_game_view/name_input/clear/bg"
+  parent: "new_game_view/btn_new_game/bg"
   layer: "text"
   inherit_alpha: true
   alpha: 1.0
   outline_alpha: 0.0
   shadow_alpha: 1.0
-  overridden_fields: 8
-  template_node_child: true
+  template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
+  custom_type: 0
+}
+nodes {
+  position {
+    x: 116.0
+    y: -20.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 38.0
+    y: 38.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/empty"
+  id: "new_game_view/name_input/clear/root"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "new_game_view/root"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
+  custom_type: 0
+}
+nodes {
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.25
+    y: 0.25
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 94.0
+    y: 124.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/icon_delete"
+  id: "new_game_view/name_input/clear/bg"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "new_game_view/name_input/clear/root"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
 }
 nodes {

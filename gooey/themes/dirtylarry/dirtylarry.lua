@@ -7,8 +7,8 @@ local M = gooey.create_theme()
 local BUTTON_PRESSED = hash("button_pressed")
 local BUTTON_NORMAL = hash("button_normal")
 
-local CHEKCKBOX_PRESSED = hash("checkbox_pressed")
-local CHEKCKBOX_CHECKED_PRESSED = hash("checkbox_checked_pressed")
+local CHEKCKBOX_PRESSED = hash("checkbox_normal")
+local CHEKCKBOX_CHECKED_PRESSED = hash("checkbox_checked_normal")
 local CHEKCKBOX_CHECKED_NORMAL = hash("checkbox_checked_normal")
 local CHEKCKBOX_NORMAL = hash("checkbox_normal")
 

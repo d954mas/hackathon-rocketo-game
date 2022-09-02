@@ -178,7 +178,7 @@ end
 function View:update(dt)
 	Base.update(self, dt)
 	local current_game_idx = COMMON.CONTEXT:get(COMMON.CONTEXT.NAMES.GAME_GUI).data.views.game_view.game_id
-	print("GAME:" .. tostring(current_game_idx))
+--	print("GAME:" .. tostring(current_game_idx))
 	if (self.current_game_idx ~= current_game_idx) then
 		self.current_game_idx = current_game_idx
 		print("REFRESH:" .. tostring(self.current_game_idx))
