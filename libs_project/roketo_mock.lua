@@ -7,7 +7,8 @@ local Roketo = {
 	data = {
 		id = "fake.user",
 		inited = false,
-		login = true
+		login = true,
+		timestamp = os.time() + 100000
 	}
 }
 Roketo.parallel.drop_empty = false
@@ -43,6 +44,9 @@ end
 function Roketo.contract_get_games_active_list()
 
 end
+function Roketo.contract_get_games_finish_list()
+
+end
 
 function Roketo.contract_get_game()
 
@@ -57,6 +61,10 @@ end
 
 function Roketo.update(dt)
 	Roketo.parallel:update(dt)
+end
+
+function Roketo.stream_calculate_end_timestamp()
+	return Roketo.data.timestamp
 end
 
 return Roketo
