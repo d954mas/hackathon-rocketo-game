@@ -33,11 +33,11 @@ function M:initialize()
 	self.time = 0
 	self.skip_time = 0
 
-	if (COMMON.html5_is_mobile()) then
-		self.storage.debug:show_mobile_input_set(true)
-	elseif (COMMON.CONSTANTS.VERSION_IS_RELEASE) then
-		self.storage.debug:show_mobile_input_set(false)
-	end
+	--if (COMMON.html5_is_mobile()) then
+	--	self.storage.debug:show_mobile_input_set(true)
+	--elseif (COMMON.CONSTANTS.VERSION_IS_RELEASE) then
+	--	self.storage.debug:show_mobile_input_set(false)
+--	end
 
 	self.subscription:add(COMMON.EVENT_BUS:subscribe(COMMON.EVENTS.WINDOW_RESIZED)
 								:go_distinct(self.scheduler):subscribe(function(data)
