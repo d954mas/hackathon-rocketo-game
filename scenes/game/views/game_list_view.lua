@@ -67,6 +67,9 @@ function View:update_game_cell(list, item, info)
 	else
 		gui.set_text(lbl_status, "WAIT TURN")
 	end
+
+	local lbl_hex = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/lbl_hex")])
+	gui.set_text(lbl_hex,#info.board)
 end
 function View:init_gui()
 	Base.init_gui(self)

@@ -186,11 +186,13 @@ function View:set_game(game, game_id)
 			local node = self.game.board[y]:sub(1 + dx, 1 + dx)
 			table.insert(self.board_nodes, { idx = idx, node = node, x = x, y = y })
 			--	print("x:" .. x .. " y:" .. y .. "node:" .. tostring(node))
-			local bg_node = gui.clone(self.vh.hex_empty)
-			gui.set_parent(bg_node, self.vh.center)
-			gui.set_enabled(bg_node, true)
-			gui.set_position(bg_node, position)
-			table.insert(self.vh.bg, bg_node)
+			if(node ~="R" and node ~= "B")then
+				local bg_node = gui.clone(self.vh.hex_empty)
+				gui.set_parent(bg_node, self.vh.center)
+				gui.set_enabled(bg_node, true)
+				gui.set_position(bg_node, position)
+				table.insert(self.vh.bg, bg_node)
+			end
 
 			local is_first = roketo.get_account_id() == game.first_player
 			gui.play_flipbook(self.vh.selection, COMMON.HASHES.hash(is_first and "hex_red" or "hex_blue"))
