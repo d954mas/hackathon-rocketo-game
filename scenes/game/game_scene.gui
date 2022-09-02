@@ -1972,7 +1972,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "ALL"
+  text: "FINISH"
   font: "game_font"
   id: "game_list_view/tab_all/text"
   xanchor: XANCHOR_NONE
@@ -3983,7 +3983,7 @@ nodes {
     w: 1.0
   }
   size {
-    x: 364.0
+    x: 368.0
     y: 100.0
     z: 0.0
     w: 1.0

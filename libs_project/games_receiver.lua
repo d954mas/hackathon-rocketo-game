@@ -8,6 +8,7 @@ function Receiver:initialize(world)
 	self.world = assert(world)
 	self.games_all_list = {}
 	self.games_active_list = {}
+	self.games_finish_list = {}
 	self.games_info = {
 
 	}
@@ -19,6 +20,7 @@ function Receiver:initialize(world)
 
 	self.callbacks = {
 		GAME_LIST_CHANGED = {},
+		GAME_LIST_FINISH_CHANGED = {},
 		GAME_ACTIVE_LIST_CHANGED = {},
 		GAME_INFO_CHANGED = {},
 	}
@@ -44,6 +46,11 @@ end
 function Receiver:add_cb_game_list_changed(cb)
 	table.insert(self.callbacks.GAME_LIST_CHANGED, cb)
 end
+
+function Receiver:add_cb_game_list_finish_changed(cb)
+	table.insert(self.callbacks.GAME_LIST_FINISH_CHANGED, cb)
+end
+
 
 function Receiver:add_cb_game_active_list_changed(cb)
 	table.insert(self.callbacks.GAME_ACTIVE_LIST_CHANGED, cb)
@@ -89,6 +96,12 @@ function Receiver:on_near_event(data)
 			table.insert(self.games_all_list, data.message.list[i])
 		end
 		self:cb_call(self.callbacks.GAME_LIST_CHANGED)
+	elseif (data.message_id == "NearContractGetGamesFinishList") then
+		COMMON.LUME.cleari(self.games_finish_list)
+		for i = #data.message.list, 1, -1 do
+			table.insert(self.games_finish_list, data.message.list[i])
+		end
+		self:cb_call(self.callbacks.GAME_LIST_FINISH_CHANGED)
 	elseif (data.message_id == "NearContractGetGame") then
 		if (self.games_info[data.message.idx]) then
 			if (self.games_info[data.message.idx].turn ~= data.message.game.turn) then
@@ -105,8 +118,8 @@ end
 
 function Receiver:update_lists()
 	if (roketo.is_logged_in() and roketo.is_ready) then
-		roketo.contract_get_games_list(roketo.get_account_id())
 		roketo.contract_get_games_active_list(roketo.get_account_id())
+		roketo.contract_get_games_finish_list(roketo.get_account_id())
 	end
 end
 

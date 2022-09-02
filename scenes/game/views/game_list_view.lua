@@ -77,7 +77,7 @@ function View:init_gui()
 		  list_id = self.root_name .. "/game_list_active", stencil_id = self.root_name .. "/game_list_active/stencil",
 		  item_id = self.root_name .. "/game_list_active/listitem/root", tab = self.vh.tabs.active
 		},
-		{ id = "all", data = WORLD.games_receiver.games_all_list, root = gui.get_node(self.root_name .. "/game_list_all/bg"),
+		{ id = "all", data = WORLD.games_receiver.games_finish_list, root = gui.get_node(self.root_name .. "/game_list_all/bg"),
 		  list_id = self.root_name .. "/game_list_all", stencil_id = self.root_name .. "/game_list_all/stencil",
 		  item_id = self.root_name .. "/game_list_all/listitem/root", tab = self.vh.tabs.all
 		},
@@ -154,7 +154,7 @@ function View:init_gui()
 		ctx:remove()
 	end)
 
-	WORLD.games_receiver:add_cb_game_list_changed(function()
+	WORLD.games_receiver:add_cb_game_list_finish_changed(function()
 		local ctx = COMMON.CONTEXT:set_context_top_game_gui()
 		self.listitem_refresh(assert(self.lists[2].list))
 		GOOEY.dynamic_list(self.lists[2].list_id, self.lists[2].stencil_id, self.lists[2].item_id, self.lists[2].data, nil, nil, {},
