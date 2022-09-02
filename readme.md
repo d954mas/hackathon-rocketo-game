@@ -1,7 +1,10 @@
 
+
 # CryptoNeon Hex Game [GAME]
 Made for [The Web3Game Online Hackathon](https://roketo.notion.site/The-Web3Game-Online-Hackathon-84fabf42829d44bba1045bb6ce001923).
 Main repository for project. 
+
+Try to create a game for web3 and find out how you can monetize it. The Web3Game Online Hackathon is a competition of development teams to create a game using crypto streaming solution in web3. [Roketo](https://roke.to/)  is a crypto streaming solution that allows you to pay for services per second.
 
 The Game of Hex made for hackathon.
 
@@ -21,6 +24,10 @@ https://www.youtube.com/watch?v=kUBZ0GWZvIY
 Hex's Rules are so simplistically easy you will likely feel like you have played the game before. Players rotate taking turns. On each player's turn, the mark any hexagon on the board their color. Play then moves to the second player, who also can play on any hexagon of their choice. Play continues in this way until one player connects their two sides together. This player has won the game!
 
 ![hex_rules.png](https://github.com/d954mas/hackathon-rocketo-game/blob/master/_docs/hex_rules.png)
+## Roketo SDK
+Roketo SDK used to implement premium subscription for user. User can create stream for 24h premium status. Later he can add fund to stream for more time.
+
+In this version. Premium and base user have no differences. Some differences can be added later. For example base user can have limit for games, but premium user can play as much as they like.
 
 
 ## Build.
