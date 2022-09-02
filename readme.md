@@ -16,11 +16,12 @@ Repositories:
  2. [Smart Contract](https://github.com/d954mas/hackathon-rocketo-backend)
  3. [JS SDK](https://github.com/d954mas/hackathon-roketo-sdk)
 
-[PLAY](https://cryptoneonhex.web.app/)
+[PLAY](https://cryptoneonhex.web.app/)  
+[YOUTUBE](https://www.youtube.com/watch?v=CczJpuGgQKc)
+
 
 ![screenshot.png](https://github.com/d954mas/hackathon-rocketo-game/blob/master/_docs/screenshot.png)
 
-TODO ADD YOUTUBE LINK
 ## How to play.
 
 Hex's Rules are so simplistically easy you will likely feel like you have played the game before. Players rotate taking turns. On each player's turn, the mark any hexagon on the board their color. Play then moves to the second player, who also can play on any hexagon of their choice. Play continues in this way until one player connects their two sides together. This player has won the game!
