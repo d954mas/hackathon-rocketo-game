@@ -7,7 +7,7 @@ local ACTIONS = require "libs.actions.actions"
 local TEST_GAME = {
 	idx = 2,
 	game = { --[[0x1067240]]
-		first_player = "d954mas.testnet",
+		first_player = "fake.user",
 		is_finished = false,
 		turn = 0,
 		give_up = 0,
@@ -112,6 +112,7 @@ function View:select_node(node, idx)
 		self.selected_node = node
 		self.selected_node_idx = idx
 		if (self.selected_node) then
+			print("SELECTION:" .. tostring(self.selected_node_idx))
 			gui.set_enabled(self.vh.selection, true)
 			gui.set_position(self.vh.selection, gui.get_position(self.selected_node))
 		end
