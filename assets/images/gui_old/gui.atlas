@@ -23,10 +23,6 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/gui_old/ui/base/crest.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/images/gui/ui/hex_blue.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
@@ -84,10 +80,6 @@ images {
 }
 images {
   image: "/assets/images/gui/ui/checkbox_checked_normal.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/images/gui/ref/profile_ref.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
