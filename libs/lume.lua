@@ -1114,11 +1114,11 @@ function lume.get_human_time(seconds)
 	else
 		local hours = string.format("%02.f", math.floor(seconds / 3600));
 		local mins = string.format("%02.f", math.floor(seconds / 60 - (hours * 60)));
-		local secs = string.format("%02.f", math.floor(seconds - hours * 3600 - mins * 60));
+		--local secs = string.format("%02.f", math.floor(seconds - hours * 3600 - mins * 60));
 		if hours == '00' then
-			return mins .. ":" .. secs
+			return mins --.. ":" .. secs
 		else
-			return hours .. ":" .. mins .. ":" .. secs
+			return hours .. ":" .. mins --.. ":" .. secs
 		end
 	end
 end
