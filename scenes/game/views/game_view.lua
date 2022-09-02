@@ -91,8 +91,8 @@ function View:init_gui()
 			ctx:remove()
 		end
 	end)
-	if(COMMON.CONSTANTS.TARGET_IS_EDITOR and not html5)then
-		self:set_game(TEST_GAME.game,TEST_GAME.idx)
+	if (COMMON.CONSTANTS.TARGET_IS_EDITOR and not html5) then
+		self:set_game(TEST_GAME.game, TEST_GAME.idx)
 	end
 end
 
@@ -175,9 +175,20 @@ function View:set_game(game, game_id)
 	local full_dx = (self.board_size - 1) + (self.board_size - 1) * 2
 	self.view_size = vmath.vector3(full_dx * View.HEX_SIZE.w / 2,
 			self.board_size * View.HEX_SIZE.h / 2 + View.HEX_SIZE.h / 2, 0)
-	gui.set_position(self.vh.center, vmath.vector3(-self.view_size.x / 2, self.view_size.y / 2, 0))
-	local position = vmath.vector3()
+
 	local idx = 0
+	local scale = 1
+	if (self.board_size >= 13) then
+		scale = 8/14
+	elseif (self.board_size >= 11) then
+		scale = 8/12
+	elseif (self.board_size >= 7) then
+		scale = 1
+	end
+	scale = scale * 1.05
+	gui.set_position(self.vh.center, vmath.vector3(-self.view_size.x / 2*scale, self.view_size.y / 2*scale, 0))
+	local position = vmath.vector3()
+	gui.set_scale(self.vh.center, vmath.vector3(scale))
 	for y = 1, self.board_size do
 		position.y = -(y - 1) * View.HEX_SIZE.h / 2 - View.HEX_SIZE.h / 2
 		for x = 1, self.board_size do
@@ -191,7 +202,7 @@ function View:set_game(game, game_id)
 			gui.set_parent(bg_node, self.vh.center)
 			gui.set_position(bg_node, position)
 			table.insert(self.vh.bg, bg_node)
-			if(node =="R" or node == "B")then
+			if (node == "R" or node == "B") then
 				gui.set_enabled(bg_node, false)
 			else
 				gui.set_enabled(bg_node, true)
@@ -216,70 +227,69 @@ function View:set_game(game, game_id)
 		end
 	end
 
-
-	for x=1,self.board_size do
-		position.y =  1 * View.HEX_SIZE.h / 2 - View.HEX_SIZE.h / 2
-		position.x = (x-1.5) * View.HEX_SIZE.w
-
-		local border_node = gui.clone(self.vh.hex_empty)
-		gui.set_parent(border_node, self.vh.center)
-		gui.set_enabled(border_node, true)
-		gui.set_position(border_node, position)
-		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_red_top"))
-		table.insert(self.vh.border, border_node)
-
-		position.x = (x-1) * View.HEX_SIZE.w + self.board_size * View.HEX_SIZE.w/2
-		position.y = -(self.board_size+1) * View.HEX_SIZE.h/2
-
-		border_node = gui.clone(self.vh.hex_empty)
-		gui.set_parent(border_node, self.vh.center)
-		gui.set_enabled(border_node, true)
-		gui.set_position(border_node, position)
-		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_red_bottom"))
-		table.insert(self.vh.border, border_node)
-	end
-
-	for y=1,self.board_size do
-		position.y = -1 * View.HEX_SIZE.h/2 - (y-1)*View.HEX_SIZE.h/2
-		position.x = -2 * View.HEX_SIZE.w/2+ (y-1)*View.HEX_SIZE.w/2
+	for x = 1, self.board_size do
+		position.y = 1 * View.HEX_SIZE.h / 2 - View.HEX_SIZE.h / 2
+		position.x = (x - 1.5) * View.HEX_SIZE.w
 
 		local border_node = gui.clone(self.vh.hex_empty)
 		gui.set_parent(border_node, self.vh.center)
 		gui.set_enabled(border_node, true)
 		gui.set_position(border_node, position)
-		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_blue_left"))
+		gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_red_top"))
 		table.insert(self.vh.border, border_node)
 
-		position.y = -1 * View.HEX_SIZE.h/2 - (y-1)*View.HEX_SIZE.h/2
-		position.x = self.board_size * View.HEX_SIZE.w + (y-1)*View.HEX_SIZE.w/2
+		position.x = (x - 1) * View.HEX_SIZE.w + self.board_size * View.HEX_SIZE.w / 2
+		position.y = -(self.board_size + 1) * View.HEX_SIZE.h / 2
 
 		border_node = gui.clone(self.vh.hex_empty)
 		gui.set_parent(border_node, self.vh.center)
 		gui.set_enabled(border_node, true)
 		gui.set_position(border_node, position)
-		gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_blue_right"))
+		gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_red_bottom"))
+		table.insert(self.vh.border, border_node)
+	end
+
+	for y = 1, self.board_size do
+		position.y = -1 * View.HEX_SIZE.h / 2 - (y - 1) * View.HEX_SIZE.h / 2
+		position.x = -2 * View.HEX_SIZE.w / 2 + (y - 1) * View.HEX_SIZE.w / 2
+
+		local border_node = gui.clone(self.vh.hex_empty)
+		gui.set_parent(border_node, self.vh.center)
+		gui.set_enabled(border_node, true)
+		gui.set_position(border_node, position)
+		gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_blue_left"))
+		table.insert(self.vh.border, border_node)
+
+		position.y = -1 * View.HEX_SIZE.h / 2 - (y - 1) * View.HEX_SIZE.h / 2
+		position.x = self.board_size * View.HEX_SIZE.w + (y - 1) * View.HEX_SIZE.w / 2
+
+		border_node = gui.clone(self.vh.hex_empty)
+		gui.set_parent(border_node, self.vh.center)
+		gui.set_enabled(border_node, true)
+		gui.set_position(border_node, position)
+		gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_blue_right"))
 		table.insert(self.vh.border, border_node)
 
 	end
 
-	position.y = -1 * View.HEX_SIZE.h/2 - (self.board_size+1-1)*View.HEX_SIZE.h/2
-	position.x = -2 * View.HEX_SIZE.w/2+ (self.board_size+1-1)*View.HEX_SIZE.w/2
+	position.y = -1 * View.HEX_SIZE.h / 2 - (self.board_size + 1 - 1) * View.HEX_SIZE.h / 2
+	position.x = -2 * View.HEX_SIZE.w / 2 + (self.board_size + 1 - 1) * View.HEX_SIZE.w / 2
 
 	local border_node = gui.clone(self.vh.hex_empty)
 	gui.set_parent(border_node, self.vh.center)
 	gui.set_enabled(border_node, true)
 	gui.set_position(border_node, position)
-	gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_corner_left_bottom"))
+	gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_corner_left_bottom"))
 	table.insert(self.vh.border, border_node)
 
-	position.y = -1 * View.HEX_SIZE.h/2 - (0-1)*View.HEX_SIZE.h/2
-	position.x = self.board_size * View.HEX_SIZE.w + (0-1)*View.HEX_SIZE.w/2
+	position.y = -1 * View.HEX_SIZE.h / 2 - (0 - 1) * View.HEX_SIZE.h / 2
+	position.x = self.board_size * View.HEX_SIZE.w + (0 - 1) * View.HEX_SIZE.w / 2
 
 	border_node = gui.clone(self.vh.hex_empty)
 	gui.set_parent(border_node, self.vh.center)
 	gui.set_enabled(border_node, true)
 	gui.set_position(border_node, position)
-	gui.play_flipbook(border_node,COMMON.HASHES.hash("hex_corner_right_top"))
+	gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_corner_right_top"))
 	table.insert(self.vh.border, border_node)
 
 end
