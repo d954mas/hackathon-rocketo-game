@@ -21,8 +21,9 @@ Repositories:
 SCREENSHOT
 
 ## How to play.
-https://www.youtube.com/watch?v=kUBZ0GWZvIY
+
 Hex's Rules are so simplistically easy you will likely feel like you have played the game before. Players rotate taking turns. On each player's turn, the mark any hexagon on the board their color. Play then moves to the second player, who also can play on any hexagon of their choice. Play continues in this way until one player connects their two sides together. This player has won the game!
+https://www.youtube.com/watch?v=kUBZ0GWZvIY
 
 ![hex_rules.png](https://github.com/d954mas/hackathon-rocketo-game/blob/master/_docs/hex_rules.png)
 ## Roketo SDK
