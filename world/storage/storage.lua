@@ -33,6 +33,7 @@ function Storage:initialize(world)
 		COMMON.i("error load storage:" .. tostring(error), TAG)
 		self:_init_storage()
 		self:_migration()
+		self:_on_load()
 		self:save(true)
 	end
 	self.prev_save_time = socket.gettime()
@@ -139,6 +140,7 @@ function Storage:_load_storage()
 	end
 
 	self:_migration()
+	self:_on_load()
 	self:save(true)
 	COMMON.i("loaded", TAG)
 end
@@ -207,11 +209,18 @@ function Storage:_init_storage()
 	self.data = data
 end
 
+function Storage:reset()
+	self:_init_storage()
+	self:update_data()
+	self:__save()
+	self:changed()
+end
+
 function Storage:_migration()
 	if (self.data.version < Storage.VERSION) then
 		COMMON.i(string.format("migrate from:%s to %s", self.data.version, Storage.VERSION), TAG)
 
-		if (self.data.version < 11) then
+		if (self.data.version < 59) then
 			self:_init_storage()
 		end
 
@@ -219,11 +228,15 @@ function Storage:_migration()
 	end
 end
 
+function Storage:_on_load()
+
+end
+
 function Storage:__save()
 	local data = {
 		data = JSON.encode(self.data),
 	}
-	data.encrypted = COMMON.CONSTANTS.VERSION_IS_RELEASE
+	data.encrypted = not Storage.LOCAL
 
 	if (data.encrypted) then
 		data.data = CRYPTO.crypt(data.data, CONSTANTS.CRYPTO_KEY)

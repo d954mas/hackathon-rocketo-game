@@ -19,6 +19,11 @@ var LibRoketoSdk = {
         const sdk = window.game_sdk
         return sdk.login();
     },
+
+    RoketoSdkJs_logout: function () {
+        const sdk = window.game_sdk
+        return sdk.logout();
+    },
     RoketoSdkJs_getAccountId: function () {
         const sdk = window.game_sdk
         let accountId = sdk.getAccountId();
