@@ -318,7 +318,7 @@ function View:set_game(game, game_id)
 	local enemy_color = (not is_first) and COMMON.LUME.color_parse_hex("#F21230") or COMMON.LUME.color_parse_hex("#00D0FF")
 
 	if (self.game.is_finished) then
-		gui.set_color(my_color)
+		gui.set_color(self.vh.lbl_status,my_color)
 		gui.set_text(self.vh.lbl_status, is_win and "YOU WIN" or "YOU LOSE")
 	else
 		gui.set_color(self.vh.lbl_status, is_my_turn and my_color or enemy_color)
