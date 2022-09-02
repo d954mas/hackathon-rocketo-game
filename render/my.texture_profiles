@@ -12,10 +12,6 @@ path_settings {
 }
 path_settings {
   path: "**"
-  profile: "Default No MipMaps"
-}
-path_settings {
-  path: "**"
   profile: "Default"
 }
 profiles {
@@ -25,9 +21,9 @@ profiles {
     formats {
       format: TEXTURE_FORMAT_RGBA
       compression_level: NORMAL
-      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+      compression_type: COMPRESSION_TYPE_DEFAULT
     }
-    mipmaps: true
+    mipmaps: false
     max_texture_size: 2048
     premultiply_alpha: true
   }
@@ -39,7 +35,7 @@ profiles {
     formats {
       format: TEXTURE_FORMAT_RGB
       compression_level: NORMAL
-      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+      compression_type: COMPRESSION_TYPE_DEFAULT
     }
     mipmaps: false
     max_texture_size: 2048
@@ -53,7 +49,7 @@ profiles {
     formats {
       format: TEXTURE_FORMAT_RGBA
       compression_level: NORMAL
-      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+      compression_type: COMPRESSION_TYPE_DEFAULT
     }
     mipmaps: false
     max_texture_size: 2048
