@@ -135,8 +135,17 @@ function View:on_input(action_id, action)
 	end
 end
 
+function View:is_my_turn()
+	if (not self.game) then return false end
+	local is_first = self.game.first_player == roketo.get_account_id()
+	local first_turn = self.game.turn % 2 == 0
+	local is_my_turn = first_turn == is_first
+	return is_my_turn
+end
+
 --TODO
 function View:find_over_node(action)
+	if (self.game.is_finished or not self:is_my_turn()) then return end
 	local possible_nodes = {}
 	for idx, node in ipairs(self.vh.bg) do
 		if (gui.pick_node(node, action.x, action.y)) then
@@ -179,14 +188,14 @@ function View:set_game(game, game_id)
 	local idx = 0
 	local scale = 1
 	if (self.board_size >= 13) then
-		scale = 8/14
+		scale = 8 / 14
 	elseif (self.board_size >= 11) then
-		scale = 8/12
+		scale = 8 / 12
 	elseif (self.board_size >= 7) then
 		scale = 1
 	end
 	scale = scale * 1.05
-	gui.set_position(self.vh.center, vmath.vector3(-self.view_size.x / 2*scale, self.view_size.y / 2*scale, 0))
+	gui.set_position(self.vh.center, vmath.vector3(-self.view_size.x / 2 * scale, self.view_size.y / 2 * scale, 0))
 	local position = vmath.vector3()
 	gui.set_scale(self.vh.center, vmath.vector3(scale))
 	for y = 1, self.board_size do

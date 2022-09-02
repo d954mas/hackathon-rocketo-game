@@ -25,6 +25,8 @@ function View:bind_vh()
 	}
 end
 
+
+
 function View:update_game_cell(list, item, info)
 	local lbl_oponnent = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/oponnent")])
 	local oponnent_name = ""
