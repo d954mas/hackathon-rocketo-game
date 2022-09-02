@@ -49,6 +49,7 @@ function View:bind_vh()
 		hex_fill = gui.get_node("hex_fill"),
 		center = gui.get_node(self.root_name .. "/center"),
 		selection = gui.get_node(self.root_name .. "/hex_selection"),
+		lbl_status = gui.get_node(self.root_name .. "/lbl_status"),
 		bg = {
 
 		},
@@ -126,7 +127,7 @@ function View:on_input(action_id, action)
 	if (action_id == COMMON.HASHES.INPUT.TOUCH) then
 		local selected_node, idx = self:find_over_node(action)
 		self:select_node(selected_node, idx)
-		if (self.selected_node_idx) then
+		if (self.selected_node_idx and self:is_my_turn()) then
 			local idx_0 = self.selected_node_idx - 1
 			local y = math.floor(idx_0 / self.board_size)
 			local x = idx_0 - y * self.board_size
@@ -145,7 +146,7 @@ end
 
 --TODO
 function View:find_over_node(action)
-	if (self.game.is_finished or not self:is_my_turn()) then return end
+	if (self.game.is_finished) then return end
 	local possible_nodes = {}
 	for idx, node in ipairs(self.vh.bg) do
 		if (gui.pick_node(node, action.x, action.y)) then
@@ -300,6 +301,28 @@ function View:set_game(game, game_id)
 	gui.set_position(border_node, position)
 	gui.play_flipbook(border_node, COMMON.HASHES.hash("hex_corner_right_top"))
 	table.insert(self.vh.border, border_node)
+
+	local is_first = self.game.first_player == roketo.get_account_id()
+	local first_turn = self.game.turn % 2 == 0
+	local is_my_turn = first_turn == is_first
+	local is_win = self.game.is_finished and (not is_my_turn)
+	local is_lose = self.game.is_finished and (is_my_turn)
+
+	if (self.game.is_finished and self.game.give_up > 0) then
+		is_win = (is_first and self.game.give_up == 2) or (not is_first and self.game.give_up == 1)
+		is_lose = (is_first and self.game.give_up == 1) or (not is_first and self.game.give_up == 2)
+	end
+
+	local my_color = is_first and COMMON.LUME.color_parse_hex("#F21230") or COMMON.LUME.color_parse_hex("#00D0FF")
+	local enemy_color = (not is_first) and COMMON.LUME.color_parse_hex("#F21230") or COMMON.LUME.color_parse_hex("#00D0FF")
+
+	if (self.game.is_finished) then
+		gui.set_color(my_color)
+		gui.set_text(self.vh.lbl_status, is_win and "YOU WIN" or "YOU LOSE")
+	else
+		gui.set_color(self.vh.lbl_status, is_my_turn and my_color or enemy_color)
+		gui.set_text(self.vh.lbl_status, is_my_turn and "YOUR TURN" or "WAIT FOR OPPONENT TURN")
+	end
 
 end
 
