@@ -2,6 +2,7 @@
 
 # CryptoNeon Hex Game [GAME]
 Made for [The Web3Game Online Hackathon](https://roketo.notion.site/The-Web3Game-Online-Hackathon-84fabf42829d44bba1045bb6ce001923).
+
 Main repository for project. 
 
 Try to create a game for web3 and find out how you can monetize it. The Web3Game Online Hackathon is a competition of development teams to create a game using crypto streaming solution in web3. [Roketo](https://roke.to/)  is a crypto streaming solution that allows you to pay for services per second.
