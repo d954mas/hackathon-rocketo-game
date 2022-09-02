@@ -91,8 +91,9 @@ function View:init_gui()
 			ctx:remove()
 		end
 	end)
-
-	self:set_game(TEST_GAME.game,TEST_GAME.idx)
+	if(COMMON.CONSTANTS.TARGET_IS_EDITOR and not html5)then
+		self:set_game(TEST_GAME.game,TEST_GAME.idx)
+	end
 end
 
 function View:update(dt)
