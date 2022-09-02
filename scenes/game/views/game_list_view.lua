@@ -46,7 +46,8 @@ function View:update_game_cell(list, item, info)
 	gui.play_flipbook(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/hex")],
 			COMMON.HASHES.hash(is_first and "hex_red" or "hex_blue"))
 
-
+	gui.set_enabled(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/turn_icon")],true)
+	gui.set_text(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/turn_lbl")], info.turn)
 
 	local first_turn = info.turn % 2 == 0
 	local is_my_turn = first_turn == is_first
@@ -69,7 +70,7 @@ function View:update_game_cell(list, item, info)
 	end
 
 	local lbl_hex = assert(item.nodes[COMMON.HASHES.hash(list.id .. "/listitem/lbl_hex")])
-	gui.set_text(lbl_hex,#info.board)
+	gui.set_text(lbl_hex, #info.board)
 end
 function View:init_gui()
 	Base.init_gui(self)
@@ -118,7 +119,6 @@ function View:init_gui()
 			local current_game = item.data == self.current_game_idx
 			gui.set_enabled(selection_node, current_game)
 			gui.set_color(selection_node, vmath.vector4(1))
-
 
 			if (item.data and item.data ~= "") then
 				if (item.__prev_data ~= item.data) then
@@ -181,7 +181,7 @@ end
 function View:update(dt)
 	Base.update(self, dt)
 	local current_game_idx = COMMON.CONTEXT:get(COMMON.CONTEXT.NAMES.GAME_GUI).data.views.game_view.game_id
---	print("GAME:" .. tostring(current_game_idx))
+	--	print("GAME:" .. tostring(current_game_idx))
 	if (self.current_game_idx ~= current_game_idx) then
 		self.current_game_idx = current_game_idx
 		print("REFRESH:" .. tostring(self.current_game_idx))
