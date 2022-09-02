@@ -51,6 +51,11 @@ var LibRoketoSdk = {
         return sdk.contractGetGamesActiveList(UTF8ToString(player));
     },
 
+    RoketoSdkJs_contractGetGamesFinishList: function (player) {
+        const sdk = window.game_sdk
+        return sdk.contractGetGamesFinishList(UTF8ToString(player));
+    },
+
     RoketoSdkJs_streamBuyPremium: function () {
         const sdk = window.game_sdk
         return sdk.streamBuyPremium();
