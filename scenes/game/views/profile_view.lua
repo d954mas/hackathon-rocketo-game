@@ -35,9 +35,6 @@ function View:init_gui()
 	self.action_update_timestamp = ACTION.Function { fun = function()
 		while (true) do
 			local delta = self.timestamp_value - os.time()
-			print("TIMESTAMP:" .. self.timestamp_value)
-			print("TIMESTAMP lua:" .. os.time())
-			print("TIMESTAMP delta:" .. delta)
 			if (delta > 0) then
 				gui.set_text(self.vh.premium_status, COMMON.LUME.get_human_time(delta))
 			else
